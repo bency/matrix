@@ -65,7 +65,6 @@ class Layout
     public function display()
     {
         echo RESET_POSITION;
-        $this->dropRow();
         $this->addRow();
         $max = count($this->row);
         for ($heigh = $max - 1; $heigh >= 0; $heigh--) {
@@ -92,14 +91,6 @@ class Layout
             }
         }
         $this->row[] = $new;
-    }
-
-    private function dropRow()
-    {
-        if (count($this->row) < $this->heigh) {
-            return;
-        }
-        array_shift($this->row);
     }
 }
 // 取得當前長寬
