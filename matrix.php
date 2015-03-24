@@ -102,7 +102,7 @@ class Layout
                 if ($this->row[$i - 1]->cells[$key]->dot == ' ') {  // 若上一列同一個位置是空白
                     $cell->dot = ' ';
                 } elseif ($cell->dot == ' ') {                      // 上一列有值但這一列是空白
-                    if (rand() % 10 > 5) {                          // 五成機率產生新值
+                    if (rand() % 10 > 7) {                          // 八成機率產生新值
                         // 將上一列上色
                         $this->row[$i - 1]->cells[$key]->color_code = 37;
                         $this->row[$i - 1]->cells[$key]->bright = 1;
