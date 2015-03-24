@@ -1,4 +1,5 @@
 <?php
+define('RESET_POSITION', "\e[H\e[J");
 class Pixel
 {
     static public $alphabet = [
@@ -63,7 +64,7 @@ class Layout
 
     public function display()
     {
-        echo "\e[H\e[J";
+        echo RESET_POSITION;
         $this->dropRow();
         $this->addRow();
         $max = count($this->row);
