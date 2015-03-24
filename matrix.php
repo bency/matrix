@@ -92,7 +92,7 @@ class Layout
             $this->row[$heigh]->display();
         }
         $this->growUp();
-        sleep(1);
+        usleep(100000);
     }
 
     private function growUp()
