@@ -60,13 +60,26 @@ class Layout
     {
         $this->heigh = $heigh;
         $this->width = $width;
+        $this->row[0] = new Row($width);
+        for ($i = 1; $i < $this->heigh; $i++) {
+            $row = new Row($width);
+            foreach ($row->cells as $key => &$cell) {
+                // 若上一列同一個位置是空白
+                if ($this->row[$i - 1]->cells[$key]->dot == ' ') {
+                    $cell->dot = ' ';
+                } elseif ($cell->dot == ' ') {
+                    $this->row[$i - 1]->cells[$key]->color_code = 37;
+                    $this->row[$i - 1]->cells[$key]->bright = 1;
+                }
+            }
+            $this->row[$i] = $row;
+        }
     }
 
     public function display()
     {
         echo RESET_POSITION;
-        $max = count($this->row);
-        for ($heigh = $max - 1; $heigh >= 0; $heigh--) {
+        for ($heigh = 0; $heigh < $this->heigh; $heigh++) {
             $this->row[$heigh]->display();
         }
         sleep(1);
