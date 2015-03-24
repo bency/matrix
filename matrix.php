@@ -65,32 +65,11 @@ class Layout
     public function display()
     {
         echo RESET_POSITION;
-        $this->addRow();
         $max = count($this->row);
         for ($heigh = $max - 1; $heigh >= 0; $heigh--) {
             $this->row[$heigh]->display();
         }
         sleep(1);
-    }
-
-    private function addRow()
-    {
-        $new = new Row($this->width);
-        if ($last_key = count($this->row)) {
-            $last = $this->row[$last_key - 1];
-            foreach ($new->cells as $key => &$cell) {
-                if ($last->cells[$key]->dot == '') {
-                    $cell->color_code = 37;
-                    $cell->bright = 1;
-                }
-            }
-        } else {
-            foreach ($new->cells as $key => &$cell) {
-                $cell->color_code = 37;
-                $cell->bright = 1;
-            }
-        }
-        $this->row[] = $new;
     }
 }
 // 取得當前長寬
