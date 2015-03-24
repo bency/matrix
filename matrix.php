@@ -120,6 +120,23 @@ class Layout
                 }
             }
         }
+
+        // 處理第一行
+        foreach ($this->row[0]->cells as $key => &$cell) {
+            if ($this->row[1]->cells[$key]->dot == ' ') {
+
+                // 當第二列為空值時 第一列產生新值的機率
+                if (rand() % 10 > 5) {
+                    $cell->setRandomAlphabet();
+                }
+            } elseif ($cell->dot != ' ') {
+
+                // 當第二列有值 而第一列變成空值的機率
+                if (rand() % 10 > 8) {
+                    $cell->dot = ' ';
+                }
+            }
+        }
     }
 }
 // 取得當前長寬
