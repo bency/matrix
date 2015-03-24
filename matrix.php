@@ -32,20 +32,20 @@ class Pixel
 
 class Row
 {
-    public $cell = [];
+    public $cells = [];
     public $width;
     public function __construct($width)
     {
         $this->width = $width;
         for ($i = 0; $i < $width; $i++) {
-            $this->cell[$i] = new Pixel;
+            $this->cells[$i] = new Pixel;
         }
     }
 
     public function display()
     {
         for ($i = 0; $i < $this->width; $i++) {
-            echo $this->cell[$i]->getAscii();
+            echo $this->cells[$i]->getAscii();
         }
         echo PHP_EOL;
     }
@@ -78,14 +78,14 @@ class Layout
         $new = new Row($this->width);
         if ($last_key = count($this->row)) {
             $last = $this->row[$last_key - 1];
-            foreach ($new->cell as $key => &$cell) {
-                if ($last->cell[$key]->dot == '') {
+            foreach ($new->cells as $key => &$cell) {
+                if ($last->cells[$key]->dot == '') {
                     $cell->color_code = 37;
                     $cell->bright = 1;
                 }
             }
         } else {
-            foreach ($new->cell as $key => &$cell) {
+            foreach ($new->cells as $key => &$cell) {
                 $cell->color_code = 37;
                 $cell->bright = 1;
             }
