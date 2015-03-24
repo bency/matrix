@@ -10,11 +10,13 @@ class Pixel
     ];
     public $color_code = 32;  // 31 ~ 37
     public $bright = 1;
-    public $dot = '';
+    public $dot = ' ';
 
-    public function __construct()
+    public function __construct($empty = false)
     {
-        $this->setRandomAlphabet();
+        if (!$empty) {
+            $this->setRandomAlphabet();
+        }
     }
 
     public function getAscii()
@@ -22,9 +24,18 @@ class Pixel
         return "\e[{$this->bright};{$this->color_code}m{$this->dot}\e[0m";
     }
 
+    public function newRandomAlphabet()
+    {
+        $this->bright = 1;
+        $this->color_code = 37;
+        $rand = rand() % count(self::$alphabet);
+        $this->dot = self::$alphabet[$rand];
+    }
+
     public function setRandomAlphabet()
     {
         $this->bright = rand() % 2;
+        $this->color_code = 32;
         $rand = rand() % count(self::$alphabet);
         $this->dot = self::$alphabet[$rand];
     }
@@ -34,11 +45,11 @@ class Row
 {
     public $cells = [];
     public $width;
-    public function __construct($width)
+    public function __construct($width, $empty = false)
     {
         $this->width = $width;
         for ($i = 0; $i < $width; $i++) {
-            $this->cells[$i] = new Pixel;
+            $this->cells[$i] = new Pixel($empty);
         }
     }
 
@@ -60,29 +71,55 @@ class Layout
     {
         $this->heigh = $heigh;
         $this->width = $width;
-        $this->row[0] = new Row($width);
-        for ($i = 1; $i < $this->heigh; $i++) {
-            $row = new Row($width);
-            foreach ($row->cells as $key => &$cell) {
-                // 若上一列同一個位置是空白
-                if ($this->row[$i - 1]->cells[$key]->dot == ' ') {
-                    $cell->dot = ' ';
-                } elseif ($cell->dot == ' ') {
-                    $this->row[$i - 1]->cells[$key]->color_code = 37;
-                    $this->row[$i - 1]->cells[$key]->bright = 1;
-                }
+        $row = new Row($width);
+        foreach ($row->cells as $key => &$cell) {
+            if ($cell->dot != ' ') {
+                $cell->color_code = 37;
+                $cell->bright = 1;
             }
-            $this->row[$i] = $row;
+        }
+        $this->row[] = $row;
+        for ($i = 1; $i < $heigh; $i++) {
+            $this->row[] = new Row($width, true);
         }
     }
 
     public function display()
     {
         echo RESET_POSITION;
-        for ($heigh = 0; $heigh < $this->heigh; $heigh++) {
+        $max = min($this->heigh, count($this->row));
+        for ($heigh = 0; $heigh < $max; $heigh++) {
             $this->row[$heigh]->display();
         }
+        $this->growUp();
         sleep(1);
+    }
+
+    private function growUp()
+    {
+        for ($i = $this->heigh - 1; $i > 0; $i--) {
+            foreach ($this->row[$i]->cells as $key => &$cell) {
+                if ($this->row[$i - 1]->cells[$key]->dot == ' ') {  // 若上一列同一個位置是空白
+                    $cell->dot = ' ';
+                } elseif ($cell->dot == ' ') {                      // 上一列有值但這一列是空白
+                    if (rand() % 10 > 5) {                          // 五成機率產生新值
+                        // 將上一列上色
+                        $this->row[$i - 1]->cells[$key]->color_code = 37;
+                        $this->row[$i - 1]->cells[$key]->bright = 1;
+                    } else {
+                        // 產生新值
+                        $this->row[$i - 1]->cells[$key]->color_code = 32;
+                        $this->row[$i - 1]->cells[$key]->bright = rand() % 2;
+                        $cell->newRandomAlphabet();
+                    }
+                } elseif ($i < $this->heigh - 1) {
+                    if ($this->row[$i + 1]->cells[$key]->dot == ' ') {
+                        $cell->bright = 1;
+                        $cell->color_code = 37;
+                    }
+                }
+            }
+        }
     }
 }
 // 取得當前長寬
