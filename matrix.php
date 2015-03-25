@@ -132,7 +132,7 @@ class Layout
             } elseif ($cell->dot != ' ') {
 
                 // 當第二列有值 而第一列變成空值的機率
-                if (rand() % 10 > 8) {
+                if (rand() % 10 > 8 and $this->row[5]->cells[$key]->dot != ' ') {
                     $cell->dot = ' ';
                 }
             }
