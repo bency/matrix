@@ -177,10 +177,8 @@ $layout = new Layout($heigh, $width);
 while(1) {
     $c = fread(STDIN, 1);
     if (in_array($c, ['='])) {
-        echo "aaa";
         $layout->increaseSleep();
     } elseif (in_array($c, ['-'])) {
-        echo "bbb";
         $layout->decreaseSleep();
     }
     $layout->display();
