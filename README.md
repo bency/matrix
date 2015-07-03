@@ -1,5 +1,6 @@
 # matrix
 matrix alphabet rain in console
+![image](https://raw.githubusercontent.com/bency/matrix/master/matrix-preview.png)
 
 # usage
 php matrix.php
