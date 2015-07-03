@@ -67,11 +67,14 @@ class Layout
     public $row = [];
     public $heigh = 0;
     public $width = 0;
+    private static $sleep_standard = 100000;
+    private static $sleep;
     public function __construct($heigh, $width)
     {
         $this->heigh = $heigh;
         $this->width = $width;
         $row = new Row($width);
+        self::$sleep = self::$sleep_standard;
         foreach ($row->cells as $key => &$cell) {
             if ($cell->dot != ' ') {
                 $cell->color_code = 37;
@@ -84,6 +87,26 @@ class Layout
         }
     }
 
+    private function adjustSleep() {
+        if (self::$sleep == self::$sleep_standard / 10) {
+            self::$sleep_standard /= 10;
+        } elseif (self::$sleep == self::$sleep_standard * 10) {
+            self::$sleep_standard *= 10;
+        }
+    }
+
+    public function decreaseSleep()
+    {
+        $this->adjustSleep();
+        self::$sleep -= self::$sleep_standard / 10;
+    }
+
+    public function increaseSleep()
+    {
+        $this->adjustSleep();
+        self::$sleep += self::$sleep_standard / 10;
+    }
+
     public function display()
     {
         echo RESET_POSITION;
@@ -92,7 +115,7 @@ class Layout
             $this->row[$heigh]->display();
         }
         $this->growUp();
-        usleep(100000);
+        usleep(self::$sleep);
     }
 
     private function growUp()
@@ -142,10 +165,22 @@ class Layout
 // 取得當前長寬
 exec('tput cols', $arr);
 exec('tput lines', $arr);
+
+// 讓 STDIN 只讀取一個字元就輸出
+system("stty -icanon time 1");
+
 $width = $arr[0];
 $heigh = $arr[1] - 1;
 $layout = new Layout($heigh, $width);
 
 while(1) {
+    $c = fread(STDIN, 1);
+    if (in_array($c, ['='])) {
+        echo "aaa";
+        $layout->increaseSleep();
+    } elseif (in_array($c, ['-'])) {
+        echo "bbb";
+        $layout->decreaseSleep();
+    }
     $layout->display();
 }
