@@ -1,5 +1,6 @@
 <?php
 define('RESET_POSITION', "\e[H\e[J");
+stream_set_blocking(STDIN, 0);
 class Pixel
 {
     static public $alphabet = [
