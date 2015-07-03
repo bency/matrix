@@ -141,6 +141,10 @@ class Layout
                         $cell->bright = 1;
                         $cell->color_code = 37;
                     }
+                } else {                                            // 最後一行
+                    if ($this->row and $cell->bright) {
+                        $cell->color_code = $this->row[$i - 1]->cells[$key]->color_code;
+                    }
                 }
             }
         }
