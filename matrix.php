@@ -98,13 +98,13 @@ class Layout
     public function decreaseSleep()
     {
         $this->adjustSleep();
-        self::$sleep -= self::$sleep_standard / 10;
+        self::$sleep += self::$sleep_standard / 10;
     }
 
     public function increaseSleep()
     {
         $this->adjustSleep();
-        self::$sleep += self::$sleep_standard / 10;
+        self::$sleep -= self::$sleep_standard / 10;
     }
 
     public function display()
