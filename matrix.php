@@ -201,5 +201,8 @@ while(1) {
     } elseif (in_array($c, ['-'])) {
         $layout->decreaseSleep();
     }
+    unset($arr);
+    exec('tput cols', $arr);
+    $layout->setWidth($arr[0]);
     $layout->display();
 }
