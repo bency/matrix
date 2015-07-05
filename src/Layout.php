@@ -11,6 +11,12 @@ class Layout
     private static $sleep;
     public function __construct()
     {
+
+        // 讓 STDIN 只讀取一個字元就輸出
+        system("stty -icanon time 1");
+
+        // STDIN 沒東西就略過
+        stream_set_blocking(STDIN, 0);
         self::$sleep = self::$sleep_standard;
     }
 
