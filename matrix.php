@@ -46,12 +46,8 @@ class Row
 {
     public $cells = [];
     public $width;
-    public function __construct($width, $empty = false)
+    public function __construct()
     {
-        $this->width = $width;
-        for ($i = 0; $i < $width; $i++) {
-            $this->cells[$i] = new Pixel($empty);
-        }
     }
 
     public function setWidth($width)
@@ -65,6 +61,9 @@ class Row
     public function display()
     {
         for ($i = 0; $i < $this->width; $i++) {
+            if (!isset($this->cells[$i])) {
+                $this->cells[$i] = new Pixel(true);
+            }
             echo $this->cells[$i]->getAscii();
         }
         echo PHP_EOL;
@@ -82,7 +81,7 @@ class Layout
     {
         $this->heigh = $heigh;
         $this->width = $width;
-        $row = new Row($width);
+        $row = new Row();
         self::$sleep = self::$sleep_standard;
         foreach ($row->cells as $key => &$cell) {
             if ($cell->dot != ' ') {
@@ -92,7 +91,7 @@ class Layout
         }
         $this->row[] = $row;
         for ($i = 1; $i < $heigh; $i++) {
-            $this->row[] = new Row($width, true);
+            $this->row[] = new Row();
         }
     }
 
@@ -129,6 +128,7 @@ class Layout
         echo RESET_POSITION;
         $max = min($this->heigh, count($this->row));
         for ($heigh = 0; $heigh < $max; $heigh++) {
+            $this->row[$heigh]->setWidth($this->width);
             $this->row[$heigh]->display();
         }
         $this->growUp();
