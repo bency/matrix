@@ -77,10 +77,8 @@ class Layout
     public $width = 0;
     private static $sleep_standard = 100000;
     private static $sleep;
-    public function __construct($heigh, $width)
+    public function __construct()
     {
-        $this->heigh = $heigh;
-        $this->width = $width;
         self::$sleep = self::$sleep_standard;
     }
 
