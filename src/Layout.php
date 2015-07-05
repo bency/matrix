@@ -118,11 +118,16 @@ class Layout
         }
     }
 
+    private function captureKeyStroke()
+    {
+        return fread(STDIN, 1);
+    }
+
     public function run()
     {
         while(1) {
 
-            $c = fread(STDIN, 1);
+            $c = $this->captureKeyStroke();
             if (in_array($c, ['='])) {
                 $this->increaseSleep();
             } elseif (in_array($c, ['-'])) {
