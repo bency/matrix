@@ -197,6 +197,7 @@ while(1) {
     unset($envi_param);
     exec('tput cols', $envi_param);
     if ($envi_param[0] != $width) {
+        $width = $envi_param[0];
         $layout->setWidth($envi_param[0]);
     }
     $layout->display();
