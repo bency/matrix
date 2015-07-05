@@ -184,6 +184,7 @@ system("stty -icanon time 1");
 $width = $arr[0];
 $heigh = $arr[1] - 1;
 $layout = new Layout($heigh, $width);
+$layout->setWidth($width);
 
 while(1) {
     $c = fread(STDIN, 1);
@@ -195,6 +196,8 @@ while(1) {
 
     unset($envi_param);
     exec('tput cols', $envi_param);
+    if ($envi_param[0] != $width) {
     $layout->setWidth($envi_param[0]);
+    }
     $layout->display();
 }
