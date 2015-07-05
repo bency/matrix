@@ -66,7 +66,6 @@ class Row
             }
             echo $this->cells[$i]->getAscii();
         }
-        echo PHP_EOL;
     }
 }
 
@@ -188,7 +187,7 @@ exec('tput lines', $arr);
 system("stty -icanon time 1");
 
 $width = $arr[0];
-$heigh = $arr[1] - 1;
+$heigh = $arr[1];
 $layout = new Layout($heigh, $width);
 $layout->setWidth($width);
 $layout->setHeight($heigh);
