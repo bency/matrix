@@ -5,20 +5,12 @@ include __DIR__ . "/src/Pixel.php";
 
 stream_set_blocking(STDIN, 0);
 
-// 取得寬度
-exec('tput cols', $arr);
-$width = $arr[0];
-
-// 取得高度
-exec('tput lines', $arr);
-$heigh = $arr[1];
+$width = $heigh = 0;
 
 // 讓 STDIN 只讀取一個字元就輸出
 system("stty -icanon time 1");
 
 $layout = new Matrix\Layout($heigh, $width);
-$layout->setWidth($width);
-$layout->setHeight($heigh);
 
 while(1) {
     $c = fread(STDIN, 1);
