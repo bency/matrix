@@ -46,20 +46,26 @@ class Row
 {
     public $cells = [];
     public $width;
-    public function __construct($width, $empty = false)
+    public function __construct()
     {
-        $this->width = $width;
-        for ($i = 0; $i < $width; $i++) {
-            $this->cells[$i] = new Pixel($empty);
+    }
+
+    public function setWidth($width)
+    {
+        if (intval($width) <= 0) {
+            return;
         }
+        $this->width = $width;
     }
 
     public function display()
     {
         for ($i = 0; $i < $this->width; $i++) {
+            if (!isset($this->cells[$i])) {
+                $this->cells[$i] = new Pixel(true);
+            }
             echo $this->cells[$i]->getAscii();
         }
-        echo PHP_EOL;
     }
 }
 
@@ -70,22 +76,25 @@ class Layout
     public $width = 0;
     private static $sleep_standard = 100000;
     private static $sleep;
-    public function __construct($heigh, $width)
+    public function __construct()
     {
-        $this->heigh = $heigh;
-        $this->width = $width;
-        $row = new Row($width);
         self::$sleep = self::$sleep_standard;
-        foreach ($row->cells as $key => &$cell) {
-            if ($cell->dot != ' ') {
-                $cell->color_code = 37;
-                $cell->bright = 1;
-            }
+    }
+
+    public function setWidth($width)
+    {
+        if (intval($width) <= 0) {
+            return;
         }
-        $this->row[] = $row;
-        for ($i = 1; $i < $heigh; $i++) {
-            $this->row[] = new Row($width, true);
+        $this->width = $width;
+    }
+
+    public function setHeight($heigh)
+    {
+        if (intval($heigh) <= 0) {
+            return;
         }
+        $this->heigh = $heigh;
     }
 
     private function adjustSleep() {
@@ -111,8 +120,11 @@ class Layout
     public function display()
     {
         echo RESET_POSITION;
-        $max = min($this->heigh, count($this->row));
-        for ($heigh = 0; $heigh < $max; $heigh++) {
+        for ($heigh = 0; $heigh < $this->heigh; $heigh++) {
+            if (!isset($this->row[$heigh])) {
+                $this->row[$heigh] = new Row();
+            }
+            $this->row[$heigh]->setWidth($this->width);
             $this->row[$heigh]->display();
         }
         $this->growUp();
@@ -123,7 +135,7 @@ class Layout
     {
         for ($i = $this->heigh - 1; $i > 0; $i--) {
             foreach ($this->row[$i]->cells as $key => &$cell) {
-                if ($this->row[$i - 1]->cells[$key]->dot == ' ') {  // 若上一列同一個位置是空白
+                if (!isset($this->row[$i - 1]->cells[$key]) or $this->row[$i - 1]->cells[$key]->dot == ' ') {  // 若上一列同一個位置是空白
                     $cell->dot = ' ';
                 } elseif ($cell->dot == ' ') {                      // 上一列有值但這一列是空白
                     if (rand() % 10 > 7) {                          // 八成機率產生新值
@@ -167,16 +179,20 @@ class Layout
         }
     }
 }
-// 取得當前長寬
+// 取得寬度
 exec('tput cols', $arr);
+$width = $arr[0];
+
+// 取得高度
 exec('tput lines', $arr);
+$heigh = $arr[1];
 
 // 讓 STDIN 只讀取一個字元就輸出
 system("stty -icanon time 1");
 
-$width = $arr[0];
-$heigh = $arr[1] - 1;
 $layout = new Layout($heigh, $width);
+$layout->setWidth($width);
+$layout->setHeight($heigh);
 
 while(1) {
     $c = fread(STDIN, 1);
@@ -184,6 +200,21 @@ while(1) {
         $layout->increaseSleep();
     } elseif (in_array($c, ['-'])) {
         $layout->decreaseSleep();
+    }
+
+    // 重設環境變數
+    unset($envi_param);
+    exec('tput cols', $envi_param);
+    exec('tput lines', $envi_param);
+
+    if ($envi_param[0] != $width) {
+        $width = $envi_param[0];
+        $layout->setWidth($width);
+    }
+
+    if (($envi_param[1]) != $heigh) {
+        $heigh = $envi_param[1];
+        $layout->setHeight($heigh);
     }
     $layout->display();
 }
