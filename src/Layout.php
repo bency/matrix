@@ -127,6 +127,8 @@ class Layout
                 $this->increaseSleep();
             } elseif (in_array($c, ['-'])) {
                 $this->decreaseSleep();
+            } elseif (in_array($c, ['q'])) {
+                break;
             }
 
             // 重設環境變數
