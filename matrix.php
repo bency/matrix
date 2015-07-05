@@ -181,13 +181,14 @@ class Layout
 }
 // 取得當前長寬
 exec('tput cols', $arr);
+$width = $arr[0];
+
 exec('tput lines', $arr);
+$heigh = $arr[1];
 
 // 讓 STDIN 只讀取一個字元就輸出
 system("stty -icanon time 1");
 
-$width = $arr[0];
-$heigh = $arr[1];
 $layout = new Layout($heigh, $width);
 $layout->setWidth($width);
 $layout->setHeight($heigh);
