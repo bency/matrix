@@ -92,6 +92,14 @@ class Layout
         $this->width = $width;
     }
 
+    public function setHeight($heigh)
+    {
+        if (intval($heigh) <= 0) {
+            return;
+        }
+        $this->heigh = $heigh;
+    }
+
     private function adjustSleep() {
         if (self::$sleep == self::$sleep_standard / 10) {
             self::$sleep_standard /= 10;
@@ -185,6 +193,7 @@ $width = $arr[0];
 $heigh = $arr[1] - 1;
 $layout = new Layout($heigh, $width);
 $layout->setWidth($width);
+$layout->setHeight($heigh);
 
 while(1) {
     $c = fread(STDIN, 1);
@@ -196,9 +205,15 @@ while(1) {
 
     unset($envi_param);
     exec('tput cols', $envi_param);
+    exec('tput lines', $envi_param);
     if ($envi_param[0] != $width) {
         $width = $envi_param[0];
         $layout->setWidth($envi_param[0]);
+    }
+
+    if (($envi_param[1]) != $heigh) {
+        $heigh = $envi_param[1];
+        $layout->setHeight($envi_param[1]);
     }
     $layout->display();
 }
