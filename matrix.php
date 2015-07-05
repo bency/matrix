@@ -1,4 +1,8 @@
 <?php
+include __DIR__ . "/src/Layout.php";
+include __DIR__ . "/src/Row.php";
+include __DIR__ . "/src/Pixel.php";
+
 stream_set_blocking(STDIN, 0);
 
 // 取得寬度
@@ -12,7 +16,7 @@ $heigh = $arr[1];
 // 讓 STDIN 只讀取一個字元就輸出
 system("stty -icanon time 1");
 
-$layout = new Layout($heigh, $width);
+$layout = new Matrix\Layout($heigh, $width);
 $layout->setWidth($width);
 $layout->setHeight($heigh);
 
