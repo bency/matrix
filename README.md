@@ -9,3 +9,4 @@ php matrix.php
 ### Raining speed
 - \- slow down
 - = speed up
+- q quit
