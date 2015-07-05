@@ -10,7 +10,7 @@ $width = $heigh = 0;
 // 讓 STDIN 只讀取一個字元就輸出
 system("stty -icanon time 1");
 
-$layout = new Matrix\Layout($heigh, $width);
+$layout = new Matrix\Layout();
 
 while(1) {
     $c = fread(STDIN, 1);
