@@ -206,12 +206,12 @@ while(1) {
     exec('tput lines', $envi_param);
     if ($envi_param[0] != $width) {
         $width = $envi_param[0];
-        $layout->setWidth($envi_param[0]);
+        $layout->setWidth($width);
     }
 
     if (($envi_param[1]) != $heigh) {
         $heigh = $envi_param[1];
-        $layout->setHeight($envi_param[1]);
+        $layout->setHeight($heigh);
     }
     $layout->display();
 }
