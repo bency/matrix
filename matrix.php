@@ -54,6 +54,14 @@ class Row
         }
     }
 
+    public function setWidth($width)
+    {
+        if (intval($width) <= 0) {
+            return;
+        }
+        $this->width = $width;
+    }
+
     public function display()
     {
         for ($i = 0; $i < $this->width; $i++) {
@@ -86,6 +94,14 @@ class Layout
         for ($i = 1; $i < $heigh; $i++) {
             $this->row[] = new Row($width, true);
         }
+    }
+
+    public function setWidth($width)
+    {
+        if (intval($width) <= 0) {
+            return;
+        }
+        $this->width = $width;
     }
 
     private function adjustSleep() {
