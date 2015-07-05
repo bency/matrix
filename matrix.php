@@ -81,18 +81,7 @@ class Layout
     {
         $this->heigh = $heigh;
         $this->width = $width;
-        $row = new Row();
         self::$sleep = self::$sleep_standard;
-        foreach ($row->cells as $key => &$cell) {
-            if ($cell->dot != ' ') {
-                $cell->color_code = 37;
-                $cell->bright = 1;
-            }
-        }
-        $this->row[] = $row;
-        for ($i = 1; $i < $heigh; $i++) {
-            $this->row[] = new Row();
-        }
     }
 
     public function setWidth($width)
@@ -126,8 +115,10 @@ class Layout
     public function display()
     {
         echo RESET_POSITION;
-        $max = min($this->heigh, count($this->row));
-        for ($heigh = 0; $heigh < $max; $heigh++) {
+        for ($heigh = 0; $heigh < $this->heigh; $heigh++) {
+            if (!isset($this->row[$heigh])) {
+                $this->row[$heigh] = new Row();
+            }
             $this->row[$heigh]->setWidth($this->width);
             $this->row[$heigh]->display();
         }
