@@ -139,7 +139,7 @@ class Layout
     {
         for ($i = $this->heigh - 1; $i > 0; $i--) {
             foreach ($this->row[$i]->cells as $key => &$cell) {
-                if ($this->row[$i - 1]->cells[$key]->dot == ' ') {  // 若上一列同一個位置是空白
+                if (!isset($this->row[$i - 1]->cells[$key]) or $this->row[$i - 1]->cells[$key]->dot == ' ') {  // 若上一列同一個位置是空白
                     $cell->dot = ' ';
                 } elseif ($cell->dot == ' ') {                      // 上一列有值但這一列是空白
                     if (rand() % 10 > 7) {                          // 八成機率產生新值
