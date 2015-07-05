@@ -179,10 +179,11 @@ class Layout
         }
     }
 }
-// 取得當前長寬
+// 取得寬度
 exec('tput cols', $arr);
 $width = $arr[0];
 
+// 取得高度
 exec('tput lines', $arr);
 $heigh = $arr[1];
 
@@ -201,9 +202,11 @@ while(1) {
         $layout->decreaseSleep();
     }
 
+    // 重設環境變數
     unset($envi_param);
     exec('tput cols', $envi_param);
     exec('tput lines', $envi_param);
+
     if ($envi_param[0] != $width) {
         $width = $envi_param[0];
         $layout->setWidth($width);
