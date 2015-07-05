@@ -120,30 +120,30 @@ class Layout
 
     public function run()
     {
-while(1) {
+        while(1) {
 
-    $c = fread(STDIN, 1);
-    if (in_array($c, ['='])) {
-        $this->increaseSleep();
-    } elseif (in_array($c, ['-'])) {
-        $this->decreaseSleep();
-    }
+            $c = fread(STDIN, 1);
+            if (in_array($c, ['='])) {
+                $this->increaseSleep();
+            } elseif (in_array($c, ['-'])) {
+                $this->decreaseSleep();
+            }
 
-    // 重設環境變數
-    unset($envi_param);
-    exec('tput cols', $envi_param);
-    exec('tput lines', $envi_param);
+            // 重設環境變數
+            unset($envi_param);
+            exec('tput cols', $envi_param);
+            exec('tput lines', $envi_param);
 
-    if ($envi_param[0] != $width) {
-        $width = $envi_param[0];
-        $this->setWidth($width);
-    }
+            if ($envi_param[0] != $width) {
+                $width = $envi_param[0];
+                $this->setWidth($width);
+            }
 
-    if (($envi_param[1]) != $heigh) {
-        $heigh = $envi_param[1];
-        $this->setHeight($heigh);
-    }
-    $this->display();
-}
+            if (($envi_param[1]) != $heigh) {
+                $heigh = $envi_param[1];
+                $this->setHeight($heigh);
+            }
+            $this->display();
+        }
     }
 }
