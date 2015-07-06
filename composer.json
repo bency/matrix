@@ -1,0 +1,13 @@
+{
+    "name": "bency/php-matrix-rain",
+    "description": "Show \"The Matrix Rain\" on your console",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "bency",
+            "email": "bency80097@gmail.com"
+        }
+    ],
+    "require": {}
+}

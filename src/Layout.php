@@ -11,6 +11,12 @@ class Layout
     private static $sleep;
     public function __construct()
     {
+
+        // 讓 STDIN 只讀取一個字元就輸出
+        system("stty -icanon time 1");
+
+        // STDIN 沒東西就略過
+        stream_set_blocking(STDIN, 0);
         self::$sleep = self::$sleep_standard;
     }
 
@@ -109,6 +115,42 @@ class Layout
                     $cell->dot = ' ';
                 }
             }
+        }
+    }
+
+    private function captureKeyStroke()
+    {
+        return fread(STDIN, 1);
+    }
+
+    public function run()
+    {
+        while(1) {
+
+            $c = $this->captureKeyStroke();
+            if (in_array($c, ['='])) {
+                $this->increaseSleep();
+            } elseif (in_array($c, ['-'])) {
+                $this->decreaseSleep();
+            } elseif (in_array($c, ['q'])) {
+                break;
+            }
+
+            // 重設環境變數
+            unset($envi_param);
+            exec('tput cols', $envi_param);
+            exec('tput lines', $envi_param);
+
+            if ($envi_param[0] != $width) {
+                $width = $envi_param[0];
+                $this->setWidth($width);
+            }
+
+            if (($envi_param[1]) != $heigh) {
+                $heigh = $envi_param[1];
+                $this->setHeight($heigh);
+            }
+            $this->display();
         }
     }
 }
