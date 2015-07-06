@@ -2,8 +2,8 @@
 matrix alphabet rain in console
 ![image](https://raw.githubusercontent.com/bency/matrix/master/matrix-preview.png)
 
-# usage
-php matrix.php
+# Example
+php example/example.php
 
 ## keyboard short cut
 ### Raining speed
