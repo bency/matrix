@@ -7,6 +7,8 @@ class Layout
     public $row = [];
     public $heigh = 0;
     public $width = 0;
+    private $new_row_ratio = 50;
+    private $empty_row_ratio = 80;
     private static $sleep_standard = 100000;
     private static $sleep;
     public function __construct()
@@ -105,13 +107,13 @@ class Layout
             if ($this->row[1]->cells[$key]->dot == ' ') {
 
                 // 當第二列為空值時 第一列產生新值的機率
-                if (rand() % 10 > 5) {
+                if (rand() % 100 > $this->new_row_ratio) {
                     $cell->setRandomAlphabet();
                 }
             } elseif ($cell->dot != ' ') {
 
                 // 當第二列有值 而第一列變成空值的機率
-                if (rand() % 10 > 8 and $this->row[5]->cells[$key]->dot != ' ') {
+                if (rand() % 100 > $this->empty_row_ratio and $this->row[5]->cells[$key]->dot != ' ') {
                     $cell->dot = ' ';
                 }
             }
