@@ -58,6 +58,34 @@ class Layout
         self::$sleep -= self::$sleep_standard / 10;
     }
 
+    public function decreaseEmptyRowProperty()
+    {
+        if ($this->empty_row_ratio > 1) {
+            $this->empty_row_ratio --;
+        }
+    }
+
+    public function increaseEmptyRowProperty()
+    {
+        if ($this->empty_row_ratio < 100) {
+            $this->empty_row_ratio ++;
+        }
+    }
+
+    public function decreaseNewRowProperty()
+    {
+        if ($this->new_row_ratio > 1) {
+            $this->new_row_ratio --;
+        }
+    }
+
+    public function increaseNewRowProperty()
+    {
+        if ($this->new_row_ratio < 100) {
+            $this->new_row_ratio ++;
+        }
+    }
+
     public function display()
     {
         echo RESET_POSITION;
