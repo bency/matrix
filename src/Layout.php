@@ -86,7 +86,7 @@ class Layout
         }
     }
 
-    public function display()
+    public function display($debug_mode = false)
     {
         echo RESET_POSITION;
         for ($heigh = 0; $heigh < $this->heigh; $heigh++) {
@@ -94,7 +94,21 @@ class Layout
                 $this->row[$heigh] = new Row();
             }
             $this->row[$heigh]->setWidth($this->width);
-            $this->row[$heigh]->display();
+            $ignore_last = '';
+            if ($heigh == $this->heigh - 1 and $debug_mode) {
+                $ignore_last = substr(
+                    sprintf(
+                        "width: %s, heigh: %s, new_row_ratio: %s, empty_row_ratio: %s",
+                        $this->width,
+                        $this->heigh,
+                        $this->new_row_ratio,
+                        $this->empty_row_ratio
+                    ),
+                    0,
+                    $this->width
+                );
+            }
+            $this->row[$heigh]->display($ignore_last);
         }
         $this->growUp();
         usleep(self::$sleep);

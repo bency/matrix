@@ -17,13 +17,18 @@ class Row
         $this->width = $width;
     }
 
-    public function display()
+    public function display($debug_message = '')
     {
         for ($i = 0; $i < $this->width; $i++) {
             if (!isset($this->cells[$i])) {
                 $this->cells[$i] = new Pixel(true);
             }
-            echo $this->cells[$i]->getAscii();
+            if ('' == $debug_message) {
+                echo $this->cells[$i]->getAscii();
+            }
+        }
+        if ('' != $debug_message) {
+            echo $debug_message;
         }
     }
 }
