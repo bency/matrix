@@ -96,22 +96,23 @@ class Layout
             $this->row[$heigh]->setWidth($this->width);
             $this->row[$heigh]->display();
         }
-            $ignore_last = '';
-            if ($debug_mode) {
-                $ignore_last = substr(
-                    sprintf(
-                        "width: %s, heigh: %s, new_row_ratio: %s, empty_row_ratio: %s",
-                        $this->width,
-                        $this->heigh,
-                        $this->new_row_ratio,
-                        $this->empty_row_ratio
-                    ),
-                    0,
-                    $this->width
-                );
-            }
-            $this->row[$heigh]->setWidth($this->width);
-            $this->row[$heigh]->display($ignore_last);
+
+        $ignore_last = '';
+        if ($debug_mode) {
+            $ignore_last = substr(
+                sprintf(
+                    "width: %s, heigh: %s, new_row_ratio: %s, empty_row_ratio: %s",
+                    $this->width,
+                    $this->heigh,
+                    $this->new_row_ratio,
+                    $this->empty_row_ratio
+                ),
+                0,
+                $this->width
+            );
+        }
+        $this->row[$heigh]->setWidth($this->width);
+        $this->row[$heigh]->display($ignore_last);
         $this->growUp();
         usleep(self::$sleep);
     }
