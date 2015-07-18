@@ -170,7 +170,7 @@ class Layout
         return fread(STDIN, 1);
     }
 
-    public function run()
+    public function run($debug_mode = false)
     {
         while(1) {
 
@@ -205,7 +205,7 @@ class Layout
                 $heigh = $envi_param[1];
                 $this->setHeight($heigh);
             }
-            $this->display();
+            $this->display($debug_mode);
         }
     }
 }
