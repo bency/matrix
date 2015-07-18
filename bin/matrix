@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php
 include __DIR__ . "/../src/Layout.php";
 include __DIR__ . "/../src/Row.php";
