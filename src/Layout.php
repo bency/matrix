@@ -101,7 +101,8 @@ class Layout
         if ($debug_mode) {
             $ignore_last = substr(
                 sprintf(
-                    "width: %s, heigh: %s, new_row_ratio: %s, empty_row_ratio: %s",
+                    "fps: %s, width: %s, heigh: %s, new_row_ratio: %s, empty_row_ratio: %s",
+                    number_format(1000000 / self::$sleep, 2),
                     $this->width,
                     $this->heigh,
                     $this->new_row_ratio,
