@@ -111,6 +111,9 @@ class Layout
                 $this->width
             );
         }
+        if (!isset($this->row[$heigh])) {
+            $this->row[$heigh] = new Row();
+        }
         $this->row[$heigh]->setWidth($this->width);
         $this->row[$heigh]->display($ignore_last);
         $this->growUp();
