@@ -9,5 +9,6 @@
             "email": "bency80097@gmail.com"
         }
     ],
+    "bin": ["bin/matrix"],
     "require": {}
 }
