@@ -171,22 +171,22 @@ class Layout
 
     private function captureKeyStroke()
     {
-            $c = fread(STDIN, 1);
-            if (in_array($c, ['='])) {
-                $this->increaseSleep();
-            } elseif (in_array($c, ['-'])) {
-                $this->decreaseSleep();
-            } elseif (in_array($c, ['q'])) {
-                break;
-            } elseif (in_array($c, ['1'])) {
-                $this->increaseNewRowProperty();
-            } elseif (in_array($c, ['2'])) {
-                $this->decreaseNewRowProperty();
-            } elseif (in_array($c, ['z'])) {
-                $this->increaseEmptyRowProperty();
-            } elseif (in_array($c, ['x'])) {
-                $this->decreaseEmptyRowProperty();
-            }
+        $c = fread(STDIN, 1);
+        if (in_array($c, ['='])) {
+            $this->increaseSleep();
+        } elseif (in_array($c, ['-'])) {
+            $this->decreaseSleep();
+        } elseif (in_array($c, ['q'])) {
+            break;
+        } elseif (in_array($c, ['1'])) {
+            $this->increaseNewRowProperty();
+        } elseif (in_array($c, ['2'])) {
+            $this->decreaseNewRowProperty();
+        } elseif (in_array($c, ['z'])) {
+            $this->increaseEmptyRowProperty();
+        } elseif (in_array($c, ['x'])) {
+            $this->decreaseEmptyRowProperty();
+        }
     }
 
     public function run($debug_mode = false)
