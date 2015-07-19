@@ -4,5 +4,11 @@ include __DIR__ . "/../src/Layout.php";
 include __DIR__ . "/../src/Row.php";
 include __DIR__ . "/../src/Pixel.php";
 
+$debug = false;
+foreach ($_SERVER['argv'] as $arg) {
+    if ('--debug' == $arg) {
+        $debug = true;
+    }
+}
 $layout = new Matrix\Layout();
-$layout->run(true);
+$layout->run($debug);
