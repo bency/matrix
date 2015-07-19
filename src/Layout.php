@@ -156,7 +156,7 @@ class Layout
             if ($this->row[1]->cells[$key]->dot == ' ') {
 
                 // 當第二列為空值時 第一列產生新值的機率
-                if (rand() % 100 > $this->new_row_ratio) {
+                if (rand() % 100 < $this->new_row_ratio) {
                     $cell->setRandomAlphabet();
                 }
             } elseif ($cell->dot != ' ') {
