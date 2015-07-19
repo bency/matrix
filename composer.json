@@ -10,5 +10,7 @@
         }
     ],
     "bin": ["bin/matrix"],
-    "require": {}
+    "require": {
+        "php": ">=5.4.0"
+    }
 }
