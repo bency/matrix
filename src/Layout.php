@@ -87,6 +87,20 @@ class Layout
         }
     }
 
+    public function decreaseMinRainLength()
+    {
+        if ($this->min_rain_length > 0) {
+            $this->min_rain_length--;
+        }
+    }
+
+    public function increaseMinRainLength()
+    {
+        if ($this->min_rain_length < $this->heigh) {
+            $this->min_rain_length++;
+        }
+    }
+
     public function display($debug_mode = false)
     {
         echo RESET_POSITION;
@@ -194,6 +208,10 @@ class Layout
             $this->increaseEmptyRowProperty();
         } elseif (in_array($c, ['x'])) {
             $this->decreaseEmptyRowProperty();
+        } elseif (in_array($c, ['a'])) {
+            $this->increaseMinRainLength();
+        } elseif (in_array($c, ['s'])) {
+            $this->decreaseMinRainLength();
         }
     }
 
