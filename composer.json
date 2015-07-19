@@ -3,6 +3,7 @@
     "description": "Show \"The Matrix Rain\" on your console",
     "type": "library",
     "license": "MIT",
+    "keywords": ["ascii rain", "matrix rain", "cli rain"],
     "authors": [
         {
             "name": "bency",
