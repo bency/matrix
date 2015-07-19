@@ -171,14 +171,7 @@ class Layout
 
     private function captureKeyStroke()
     {
-        return fread(STDIN, 1);
-    }
-
-    public function run($debug_mode = false)
-    {
-        while(1) {
-
-            $c = $this->captureKeyStroke();
+            $c = fread(STDIN, 1);
             if (in_array($c, ['='])) {
                 $this->increaseSleep();
             } elseif (in_array($c, ['-'])) {
@@ -194,7 +187,13 @@ class Layout
             } elseif (in_array($c, ['x'])) {
                 $this->decreaseEmptyRowProperty();
             }
+    }
 
+    public function run($debug_mode = false)
+    {
+        while(1) {
+
+            $this->captureKeyStroke();
             // 重設環境變數
             unset($envi_param);
             exec('tput cols', $envi_param);
