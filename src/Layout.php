@@ -9,6 +9,7 @@ class Layout
     public $width = 0;
     private $new_row_ratio = 50;
     private $empty_row_ratio = 80;
+    private $min_rain_length = 5;
     private static $sleep_standard = 100000;
     private static $sleep;
     public function __construct()
@@ -161,8 +162,15 @@ class Layout
                 }
             } elseif ($cell->dot != ' ') {
 
-                // 當第二列有值 而第一列變成空值的機率
-                if (rand() % 100 > $this->empty_row_ratio and $this->row[5]->cells[$key]->dot != ' ') {
+                // End rain by the probability of empty_row_ratio
+                // after growing longer than min_rain_length
+                $long_enough = true;
+                for ($i = 1; $i <= $this->min_rain_length; $i++) {
+                    if (!isset($this->row[$i]) or ' ' == $this->row[$i]->cells[$key]->dot) {
+                        $long_enough = false;
+                    }
+                }
+                if ((rand() % 100 < $this->empty_row_ratio) and $long_enough) {
                     $cell->dot = ' ';
                 }
             }
