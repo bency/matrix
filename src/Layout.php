@@ -116,12 +116,13 @@ class Layout
         if ($debug_mode) {
             $ignore_last = substr(
                 sprintf(
-                    "fps: %s, W: %s, H: %s, NRR: %s, ERR: %s",
+                    "fps: %s, W: %s, H: %s, NRR: %s, ERR: %s, MRL: %s",
                     number_format(1000000 / self::$sleep, 2),
                     $this->width,
                     $this->heigh,
                     $this->new_row_ratio,
-                    $this->empty_row_ratio
+                    $this->empty_row_ratio,
+                    $this->min_rain_length
                 ),
                 0,
                 $this->width
