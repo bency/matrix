@@ -8,6 +8,11 @@ matrix alphabet rain in console
 2. run command: matrix
 
 ## keyboard short cut
+
+- c change raining color
+- a increase the length of rain
+- s decrease the length of rain
+
 ### Raining speed
 - \- slow down
 - = speed up
