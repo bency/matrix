@@ -200,7 +200,7 @@ class Layout
         } elseif (in_array($c, ['-'])) {
             $this->decreaseSleep();
         } elseif (in_array($c, ['q'])) {
-            break;
+            exit;
         } elseif (in_array($c, ['1'])) {
             $this->increaseNewRowProperty();
         } elseif (in_array($c, ['2'])) {
