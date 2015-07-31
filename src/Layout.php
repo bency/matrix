@@ -140,21 +140,23 @@ class Layout
     private function growUp()
     {
         for ($i = $this->heigh - 1; $i > 0; $i--) {
+
             foreach ($this->row[$i]->cells as $key => &$cell) {
-                if (!isset($this->row[$i - 1]->cells[$key]) or $this->row[$i - 1]->cells[$key]->dot == ' ') {  // 若上一列同一個位置是空白
+
+                if (!isset($this->row[$i - 1]->cells[$key]) or $this->row[$i - 1]->cells[$key]->dot == ' ') {
                     $cell->dot = ' ';
                 } elseif ($cell->dot == ' ') {                      // 上一列有值但這一列是空白
                     if (rand() % 10 > 7) {                          // 八成機率產生新值
-                        // 將上一列上色
-                        $this->row[$i - 1]->cells[$key]->color_code = 37;
+                        // 已經不知道為什麼需要這一行了
+                        $this->row[$i - 1]->cells[$key]->color_code = 92;
                     } else {
                         // 產生新值
-                        $this->row[$i - 1]->cells[$key]->color_code = 32;
+                        $this->row[$i - 1]->cells[$key]->color_code = Pixel::$color_256[0];
                         $cell->newRandomAlphabet();
                     }
                 } elseif ($i < $this->heigh - 1) {
                     if ($this->row[$i + 1]->cells[$key]->dot == ' ') {
-                        $cell->color_code = 37;
+                        $cell->color_code = 15;
                     }
                 } else {                                            // 最後一行
                     if ($this->row) {

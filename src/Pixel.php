@@ -10,6 +10,7 @@ class Pixel
         ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '
     ];
     public $color_code = 32;  // 31 ~ 37
+    public static $color_256 = [22, 28, 34, 40, 46];
     public $dot = ' ';
 
     public function __construct($empty = false)
@@ -26,14 +27,14 @@ class Pixel
 
     public function newRandomAlphabet()
     {
-        $this->color_code = 37;
+        $this->color_code = 15;
         $rand = rand() % count(self::$alphabet);
         $this->dot = self::$alphabet[$rand];
     }
 
     public function setRandomAlphabet()
     {
-        $this->color_code = 32;
+        $this->color_code = self::$color_256[rand()%5];
         $rand = rand() % count(self::$alphabet);
         $this->dot = self::$alphabet[$rand];
     }
