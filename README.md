@@ -1,7 +1,9 @@
 
 # matrix
 matrix alphabet rain in console
-![image](https://raw.githubusercontent.com/bency/matrix/master/matrix-preview.png)
+![image](https://raw.githubusercontent.com/bency/matrix/master/matrix-preview-green.png)
+![image](https://raw.githubusercontent.com/bency/matrix/master/matrix-preview-blue.png)
+![image](https://raw.githubusercontent.com/bency/matrix/master/matrix-preview-gray.png)
 
 # Usage
 1. export PATH=$PATH:$HOME/.composer/vendor/bin
