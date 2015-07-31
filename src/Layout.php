@@ -7,9 +7,10 @@ class Layout
     public $row = [];
     public $heigh = 0;
     public $width = 0;
+    public static $color_style = 0;
     private $new_row_ratio = 50;
     private $empty_row_ratio = 80;
-    private $min_rain_length = 5;
+    private $min_rain_length = 15;
     private static $sleep_standard = 100000;
     private static $sleep;
     public function __construct()
@@ -137,30 +138,38 @@ class Layout
         usleep(self::$sleep);
     }
 
+    private function getColors()
+    {
+        return Pixel::$color_256[self::$color_style];
+    }
+
     private function growUp()
     {
         for ($i = $this->heigh - 1; $i > 0; $i--) {
+
             foreach ($this->row[$i]->cells as $key => &$cell) {
-                if (!isset($this->row[$i - 1]->cells[$key]) or $this->row[$i - 1]->cells[$key]->dot == ' ') {  // 若上一列同一個位置是空白
+
+                if (!isset($this->row[$i - 1]->cells[$key]) or $this->row[$i - 1]->cells[$key]->dot == ' ') {
                     $cell->dot = ' ';
                 } elseif ($cell->dot == ' ') {                      // 上一列有值但這一列是空白
                     if (rand() % 10 > 7) {                          // 八成機率產生新值
-                        // 將上一列上色
-                        $this->row[$i - 1]->cells[$key]->color_code = 37;
-                        $this->row[$i - 1]->cells[$key]->bright = 1;
+                        // 已經不知道為什麼需要這一行了
+                        $this->row[$i - 1]->cells[$key]->color_code = 92;
                     } else {
                         // 產生新值
-                        $this->row[$i - 1]->cells[$key]->color_code = 32;
-                        $this->row[$i - 1]->cells[$key]->bright = rand() % 2;
+                        $this->row[$i - 1]->cells[$key]->color_code = 1;
                         $cell->newRandomAlphabet();
+                    }
+                    for ($j = $i - 1, $k = count($this->getColors()) - 1; isset($this->row[$j]); $j--) {
+                        $c = max($k--, 0);
+                        $this->row[$j]->cells[$key]->color_code = $this->getColors()[$c];
                     }
                 } elseif ($i < $this->heigh - 1) {
                     if ($this->row[$i + 1]->cells[$key]->dot == ' ') {
-                        $cell->bright = 1;
-                        $cell->color_code = 37;
+                        $cell->color_code = 15;
                     }
                 } else {                                            // 最後一行
-                    if ($this->row and $cell->bright) {
+                    if ($this->row) {
                         $cell->color_code = $this->row[$i - 1]->cells[$key]->color_code;
                     }
                 }
@@ -200,7 +209,7 @@ class Layout
         } elseif (in_array($c, ['-'])) {
             $this->decreaseSleep();
         } elseif (in_array($c, ['q'])) {
-            break;
+            exit;
         } elseif (in_array($c, ['1'])) {
             $this->increaseNewRowProperty();
         } elseif (in_array($c, ['2'])) {
@@ -213,6 +222,8 @@ class Layout
             $this->increaseMinRainLength();
         } elseif (in_array($c, ['s'])) {
             $this->decreaseMinRainLength();
+        } elseif (in_array($c, ['c'])) {
+            self::$color_style = (self::$color_style + 1) % count(Pixel::$color_256);
         }
     }
 
