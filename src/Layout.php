@@ -222,6 +222,8 @@ class Layout
             $this->increaseMinRainLength();
         } elseif (in_array($c, ['s'])) {
             $this->decreaseMinRainLength();
+        } elseif (in_array($c, ['c'])) {
+            self::$color_style = (self::$color_style + 1) % count(Pixel::$color_256);
         }
     }
 
