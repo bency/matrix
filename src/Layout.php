@@ -147,20 +147,17 @@ class Layout
                     if (rand() % 10 > 7) {                          // 八成機率產生新值
                         // 將上一列上色
                         $this->row[$i - 1]->cells[$key]->color_code = 37;
-                        $this->row[$i - 1]->cells[$key]->bright = 1;
                     } else {
                         // 產生新值
                         $this->row[$i - 1]->cells[$key]->color_code = 32;
-                        $this->row[$i - 1]->cells[$key]->bright = rand() % 2;
                         $cell->newRandomAlphabet();
                     }
                 } elseif ($i < $this->heigh - 1) {
                     if ($this->row[$i + 1]->cells[$key]->dot == ' ') {
-                        $cell->bright = 1;
                         $cell->color_code = 37;
                     }
                 } else {                                            // 最後一行
-                    if ($this->row and $cell->bright) {
+                    if ($this->row) {
                         $cell->color_code = $this->row[$i - 1]->cells[$key]->color_code;
                     }
                 }
