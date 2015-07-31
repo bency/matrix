@@ -7,9 +7,10 @@ class Layout
     public $row = [];
     public $heigh = 0;
     public $width = 0;
+    public static $color_style = 0;
     private $new_row_ratio = 50;
     private $empty_row_ratio = 80;
-    private $min_rain_length = 5;
+    private $min_rain_length = 15;
     private static $sleep_standard = 100000;
     private static $sleep;
     public function __construct()
@@ -137,6 +138,11 @@ class Layout
         usleep(self::$sleep);
     }
 
+    private function getColors()
+    {
+        return Pixel::$color_256[self::$color_style];
+    }
+
     private function growUp()
     {
         for ($i = $this->heigh - 1; $i > 0; $i--) {
@@ -151,12 +157,12 @@ class Layout
                         $this->row[$i - 1]->cells[$key]->color_code = 92;
                     } else {
                         // 產生新值
-                        $this->row[$i - 1]->cells[$key]->color_code = Pixel::$color_256[0];
+                        $this->row[$i - 1]->cells[$key]->color_code = 1;
                         $cell->newRandomAlphabet();
                     }
-                    for ($j = $i - 1, $k = count(Pixel::$color_256) - 1; isset($this->row[$j]); $j--) {
+                    for ($j = $i - 1, $k = count($this->getColors()) - 1; isset($this->row[$j]); $j--) {
                         $c = max($k--, 0);
-                        $this->row[$j]->cells[$key]->color_code = Pixel::$color_256[$c];
+                        $this->row[$j]->cells[$key]->color_code = $this->getColors()[$c];
                     }
                 } elseif ($i < $this->heigh - 1) {
                     if ($this->row[$i + 1]->cells[$key]->dot == ' ') {
