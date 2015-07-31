@@ -4,8 +4,9 @@ matrix alphabet rain in console
 ![image](https://raw.githubusercontent.com/bency/matrix/master/matrix-preview.png)
 
 # Usage
-1. add ./composer/bin to PATH
-2. run command: matrix
+1. export PATH=$PATH:$HOME/.composer/vendor/bin
+2. $ composer global require bency/php-matrix-rain
+3. $ matrix
 
 ## keyboard short cut
 
