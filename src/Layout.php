@@ -154,6 +154,10 @@ class Layout
                         $this->row[$i - 1]->cells[$key]->color_code = Pixel::$color_256[0];
                         $cell->newRandomAlphabet();
                     }
+                    for ($j = $i - 1, $k = count(Pixel::$color_256) - 1; isset($this->row[$j]); $j--) {
+                        $c = max($k--, 0);
+                        $this->row[$j]->cells[$key]->color_code = Pixel::$color_256[$c];
+                    }
                 } elseif ($i < $this->heigh - 1) {
                     if ($this->row[$i + 1]->cells[$key]->dot == ' ') {
                         $cell->color_code = 15;
