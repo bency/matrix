@@ -8,9 +8,12 @@ class Layout
     public $heigh = 0;
     public $width = 0;
     public static $color_style = 0;
+    public static $marquee_offset = 0;
     private $new_row_ratio = 50;
     private $empty_row_ratio = 80;
     private $min_rain_length = 15;
+    private $wording = null;
+    private $shift = false;
     private static $sleep_standard = 100000;
     private static $sleep;
     public function __construct()
@@ -22,6 +25,28 @@ class Layout
         // STDIN 沒東西就略過
         stream_set_blocking(STDIN, 0);
         self::$sleep = self::$sleep_standard;
+    }
+
+    public function enableMarquee()
+    {
+        if (!$this->wording) {
+            throw new Exception('You need to set wording first.');
+        }
+        $this->shift = true;
+    }
+
+    public function disableMarquee()
+    {
+        $this->shift = false;
+    }
+
+    public function setWording($str)
+    {
+        if (strlen($str) < 1) {
+            return false;
+        }
+        $this->wording = $str;
+        return true;
     }
 
     public function setWidth($width)
@@ -143,34 +168,53 @@ class Layout
         return Pixel::$color_256[self::$color_style];
     }
 
-    private function growUp()
+    private function growUp(array $options = [])
     {
-        for ($i = $this->heigh - 1; $i > 0; $i--) {
+        $marquee = null;
+        if ($this->wording) {
+            $marquee = Alphabet::getString($this->wording);
+        }
 
-            foreach ($this->row[$i]->cells as $key => &$cell) {
+        if ($this->shift) {
+            self::$marquee_offset = (self::$marquee_offset - 1) % $this->width;
+        }
+        for ($row = $this->heigh - 1; $row > 0; $row--) {
 
-                if (!isset($this->row[$i - 1]->cells[$key]) or $this->row[$i - 1]->cells[$key]->dot == ' ') {
+            foreach ($this->row[$row]->cells as $col => &$cell) {
+                if ($this->shift) {
+                    $offset = ($col - self::$marquee_offset) % (count($marquee[0]) + 5);
+                } else {
+                    $offset = ($col - self::$marquee_offset);
+                }
+                if ($marquee and isset($marquee[$row - ($this->heigh) / 2 + 2][$offset]) and $marquee[$row - ($this->heigh) / 2 + 2][$offset]) {
+                    $this->row[$row]->cells[$col]->is_wording = true;
+                } else {
+                    $this->row[$row]->cells[$col]->is_wording = false;
+                }
+
+                if (!isset($this->row[$row - 1]->cells[$col]) or $this->row[$row - 1]->cells[$col]->dot == ' ') {
                     $cell->dot = ' ';
                 } elseif ($cell->dot == ' ') {                      // 上一列有值但這一列是空白
                     if (rand() % 10 > 7) {                          // 八成機率產生新值
                         // 已經不知道為什麼需要這一行了
-                        $this->row[$i - 1]->cells[$key]->color_code = 92;
+                        $this->row[$row - 1]->cells[$col]->color_code = 92;
                     } else {
                         // 產生新值
-                        $this->row[$i - 1]->cells[$key]->color_code = 1;
+                        $this->row[$row - 1]->cells[$col]->color_code = 1;
                         $cell->newRandomAlphabet();
                     }
-                    for ($j = $i - 1, $k = count($this->getColors()) - 1; isset($this->row[$j]); $j--) {
+                    for ($snake = $row - 1, $k = count($this->getColors()) - 1; isset($this->row[$snake]); $snake--) {
+
                         $c = max($k--, 0);
-                        $this->row[$j]->cells[$key]->color_code = $this->getColors()[$c];
+                        $this->row[$snake]->cells[$col]->color_code = $this->getColors()[$c];
                     }
-                } elseif ($i < $this->heigh - 1) {
-                    if ($this->row[$i + 1]->cells[$key]->dot == ' ') {
+                } elseif ($row < $this->heigh - 1) {
+                    if ($this->row[$row + 1]->cells[$col]->dot == ' ') {
                         $cell->color_code = 15;
                     }
                 } else {                                            // 最後一行
                     if ($this->row) {
-                        $cell->color_code = $this->row[$i - 1]->cells[$key]->color_code;
+                        $cell->color_code = $this->row[$row - 1]->cells[$col]->color_code;
                     }
                 }
             }

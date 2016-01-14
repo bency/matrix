@@ -6,9 +6,9 @@ matrix alphabet rain in console
 ![image](https://raw.githubusercontent.com/bency/matrix/master/matrix-preview-gray.png)
 
 # Usage
-1. export PATH=$PATH:$HOME/.composer/vendor/bin
-2. $ composer global require bency/php-matrix-rain
-3. $ matrix
+    $ export PATH=$PATH:$HOME/.composer/vendor/bin
+    $ composer global require bency/php-matrix-rain
+    $ matrix
 
 ## keyboard short cut
 

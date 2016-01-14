@@ -3,6 +3,7 @@
 include __DIR__ . "/../src/Layout.php";
 include __DIR__ . "/../src/Row.php";
 include __DIR__ . "/../src/Pixel.php";
+include __DIR__ . "/../src/Alphabet.php";
 
 $debug = false;
 foreach ($_SERVER['argv'] as $arg) {
@@ -11,4 +12,6 @@ foreach ($_SERVER['argv'] as $arg) {
     }
 }
 $layout = new Matrix\Layout();
+$layout->setWording('MATRIX RAIN');
+$layout->enableMarquee();
 $layout->run($debug);
