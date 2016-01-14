@@ -12,6 +12,8 @@ class Layout
     private $new_row_ratio = 50;
     private $empty_row_ratio = 80;
     private $min_rain_length = 15;
+    private $wording = null;
+    private $shift = false;
     private static $sleep_standard = 100000;
     private static $sleep;
     public function __construct()
@@ -23,6 +25,28 @@ class Layout
         // STDIN 沒東西就略過
         stream_set_blocking(STDIN, 0);
         self::$sleep = self::$sleep_standard;
+    }
+
+    public function enableMarquee()
+    {
+        if (!$this->wording) {
+            throw new Exception('You need to set wording first.');
+        }
+        $this->shift = true;
+    }
+
+    public function disableMarquee()
+    {
+        $this->shift = false;
+    }
+
+    public function setWording($str)
+    {
+        if (strlen($str) < 1) {
+            return false;
+        }
+        $this->wording = $str;
+        return true;
     }
 
     public function setWidth($width)
@@ -147,11 +171,11 @@ class Layout
     private function growUp(array $options = [])
     {
         $marquee = null;
-        if (isset($options['wording']) and strlen($options['wording']) > 0) {
-            $marquee = Alphabet::getString($options['wording']);
+        if ($this->wording) {
+            $marquee = Alphabet::getString($this->wording);
         }
 
-        if (isset($options['shift']) and $options['shift']) {
+        if ($this->shift) {
             self::$marquee_offset = (self::$marquee_offset - 1) % $this->width;
         }
         for ($i = $this->heigh - 1; $i > 0; $i--) {
@@ -171,7 +195,7 @@ class Layout
                     }
                     for ($j = $i - 1, $k = count($this->getColors()) - 1; isset($this->row[$j]); $j--) {
 
-                        if (isset($options['shift']) and $options['shift']) {
+                        if ($this->shift) {
                             $offset = ($key - self::$marquee_offset) % (count($marquee[0]) + 5);
                         } else {
                             $offset = ($key - self::$marquee_offset);
