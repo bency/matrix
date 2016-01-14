@@ -16,6 +16,7 @@ class Pixel
         [16, 17, 18, 19, 20, 21],
         [232, 235, 238, 241, 244, 247, 250, 253]
     ];
+    public static $color_wording = [84, 21, 253];
     public $dot = ' ';
 
     public function __construct($empty = false)
@@ -28,7 +29,7 @@ class Pixel
     public function getAscii()
     {
         if ($this->is_wording) {
-            return "\e[48;5;{$this->color_code}m{$this->dot}\e[0m";
+            return "\e[48;5;" . self::$color_wording[Layout::$color_style] . "m{$this->dot}\e[0m";
         }
         return "\e[38;5;{$this->color_code}m{$this->dot}\e[0m";
     }
