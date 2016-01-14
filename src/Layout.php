@@ -178,43 +178,43 @@ class Layout
         if ($this->shift) {
             self::$marquee_offset = (self::$marquee_offset - 1) % $this->width;
         }
-        for ($i = $this->heigh - 1; $i > 0; $i--) {
+        for ($row = $this->heigh - 1; $row > 0; $row--) {
 
-            foreach ($this->row[$i]->cells as $key => &$cell) {
+            foreach ($this->row[$row]->cells as $col => &$cell) {
 
-                if (!isset($this->row[$i - 1]->cells[$key]) or $this->row[$i - 1]->cells[$key]->dot == ' ') {
+                if (!isset($this->row[$row - 1]->cells[$col]) or $this->row[$row - 1]->cells[$col]->dot == ' ') {
                     $cell->dot = ' ';
                 } elseif ($cell->dot == ' ') {                      // 上一列有值但這一列是空白
                     if (rand() % 10 > 7) {                          // 八成機率產生新值
                         // 已經不知道為什麼需要這一行了
-                        $this->row[$i - 1]->cells[$key]->color_code = 92;
+                        $this->row[$row - 1]->cells[$col]->color_code = 92;
                     } else {
                         // 產生新值
-                        $this->row[$i - 1]->cells[$key]->color_code = 1;
+                        $this->row[$row - 1]->cells[$col]->color_code = 1;
                         $cell->newRandomAlphabet();
                     }
-                    for ($j = $i - 1, $k = count($this->getColors()) - 1; isset($this->row[$j]); $j--) {
+                    for ($snake = $row - 1, $k = count($this->getColors()) - 1; isset($this->row[$snake]); $snake--) {
 
                         if ($this->shift) {
-                            $offset = ($key - self::$marquee_offset) % (count($marquee[0]) + 5);
+                            $offset = ($col - self::$marquee_offset) % (count($marquee[0]) + 5);
                         } else {
-                            $offset = ($key - self::$marquee_offset);
+                            $offset = ($col - self::$marquee_offset);
                         }
-                        if ($marquee and isset($marquee[$j - ($this->heigh) / 2 + 2][$offset]) and $marquee[$j - ($this->heigh) / 2 + 2][$offset]) {
-                            $this->row[$j]->cells[$key]->is_wording = true;
+                        if ($marquee and isset($marquee[$snake - ($this->heigh) / 2 + 2][$offset]) and $marquee[$snake - ($this->heigh) / 2 + 2][$offset]) {
+                            $this->row[$snake]->cells[$col]->is_wording = true;
                         } else {
-                            $this->row[$j]->cells[$key]->is_wording = false;
+                            $this->row[$snake]->cells[$col]->is_wording = false;
                         }
                         $c = max($k--, 0);
-                        $this->row[$j]->cells[$key]->color_code = $this->getColors()[$c];
+                        $this->row[$snake]->cells[$col]->color_code = $this->getColors()[$c];
                     }
-                } elseif ($i < $this->heigh - 1) {
-                    if ($this->row[$i + 1]->cells[$key]->dot == ' ') {
+                } elseif ($row < $this->heigh - 1) {
+                    if ($this->row[$row + 1]->cells[$col]->dot == ' ') {
                         $cell->color_code = 15;
                     }
                 } else {                                            // 最後一行
                     if ($this->row) {
-                        $cell->color_code = $this->row[$i - 1]->cells[$key]->color_code;
+                        $cell->color_code = $this->row[$row - 1]->cells[$col]->color_code;
                     }
                 }
             }
