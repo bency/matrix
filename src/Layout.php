@@ -181,16 +181,16 @@ class Layout
         for ($row = $this->heigh - 1; $row > 0; $row--) {
 
             foreach ($this->row[$row]->cells as $col => &$cell) {
-                        if ($this->shift) {
-                            $offset = ($col - self::$marquee_offset) % (count($marquee[0]) + 5);
-                        } else {
-                            $offset = ($col - self::$marquee_offset);
-                        }
-                        if ($marquee and isset($marquee[$row - ($this->heigh) / 2 + 2][$offset]) and $marquee[$row - ($this->heigh) / 2 + 2][$offset]) {
-                            $this->row[$row]->cells[$col]->is_wording = true;
-                        } else {
-                            $this->row[$row]->cells[$col]->is_wording = false;
-                        }
+                if ($this->shift) {
+                    $offset = ($col - self::$marquee_offset) % (count($marquee[0]) + 5);
+                } else {
+                    $offset = ($col - self::$marquee_offset);
+                }
+                if ($marquee and isset($marquee[$row - ($this->heigh) / 2 + 2][$offset]) and $marquee[$row - ($this->heigh) / 2 + 2][$offset]) {
+                    $this->row[$row]->cells[$col]->is_wording = true;
+                } else {
+                    $this->row[$row]->cells[$col]->is_wording = false;
+                }
 
                 if (!isset($this->row[$row - 1]->cells[$col]) or $this->row[$row - 1]->cells[$col]->dot == ' ') {
                     $cell->dot = ' ';
