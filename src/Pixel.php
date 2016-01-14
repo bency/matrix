@@ -9,6 +9,7 @@ class Pixel
         ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
         ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '
     ];
+    public $is_wording = false;
     public $color_code = 15;  // 31 ~ 37
     public static $color_256 = [
         [234, 22, 28, 34, 40, 46, 83, 84],
@@ -26,6 +27,9 @@ class Pixel
 
     public function getAscii()
     {
+        if ($this->is_wording) {
+            return "\e[48;5;{$this->color_code}m{$this->dot}\e[0m";
+        }
         return "\e[38;5;{$this->color_code}m{$this->dot}\e[0m";
     }
 

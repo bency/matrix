@@ -143,8 +143,13 @@ class Layout
         return Pixel::$color_256[self::$color_style];
     }
 
-    private function growUp()
+    private function growUp(array $options = [])
     {
+        $marquee = null;
+        if (isset($options['wording']) and strlen($options['wording']) > 0) {
+            $marquee = Alphabet::getString($options['wording']);
+        }
+
         for ($i = $this->heigh - 1; $i > 0; $i--) {
 
             foreach ($this->row[$i]->cells as $key => &$cell) {
@@ -161,6 +166,12 @@ class Layout
                         $cell->newRandomAlphabet();
                     }
                     for ($j = $i - 1, $k = count($this->getColors()) - 1; isset($this->row[$j]); $j--) {
+
+                        if ($marquee and isset($marquee[$j - ($this->heigh) / 2 + 2][$offset]) and $marquee[$j - ($this->heigh) / 2 + 2][$offset]) {
+                            $this->row[$j]->cells[$key]->is_wording = true;
+                        } else {
+                            $this->row[$j]->cells[$key]->is_wording = false;
+                        }
                         $c = max($k--, 0);
                         $this->row[$j]->cells[$key]->color_code = $this->getColors()[$c];
                     }
