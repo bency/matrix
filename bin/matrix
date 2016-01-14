@@ -12,4 +12,6 @@ foreach ($_SERVER['argv'] as $arg) {
     }
 }
 $layout = new Matrix\Layout();
+$layout->setWording('MATRIX RAIN');
+$layout->enableMarquee();
 $layout->run($debug);
