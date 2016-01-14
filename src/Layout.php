@@ -8,6 +8,7 @@ class Layout
     public $heigh = 0;
     public $width = 0;
     public static $color_style = 0;
+    public static $marquee_offset = 0;
     private $new_row_ratio = 50;
     private $empty_row_ratio = 80;
     private $min_rain_length = 15;
@@ -150,6 +151,9 @@ class Layout
             $marquee = Alphabet::getString($options['wording']);
         }
 
+        if (isset($options['shift']) and $options['shift']) {
+            self::$marquee_offset = (self::$marquee_offset - 1) % $this->width;
+        }
         for ($i = $this->heigh - 1; $i > 0; $i--) {
 
             foreach ($this->row[$i]->cells as $key => &$cell) {
@@ -167,6 +171,11 @@ class Layout
                     }
                     for ($j = $i - 1, $k = count($this->getColors()) - 1; isset($this->row[$j]); $j--) {
 
+                        if (isset($options['shift']) and $options['shift']) {
+                            $offset = ($key - self::$marquee_offset) % (count($marquee[0]) + 5);
+                        } else {
+                            $offset = ($key - self::$marquee_offset);
+                        }
                         if ($marquee and isset($marquee[$j - ($this->heigh) / 2 + 2][$offset]) and $marquee[$j - ($this->heigh) / 2 + 2][$offset]) {
                             $this->row[$j]->cells[$key]->is_wording = true;
                         } else {
