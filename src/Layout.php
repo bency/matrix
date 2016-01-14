@@ -181,6 +181,16 @@ class Layout
         for ($row = $this->heigh - 1; $row > 0; $row--) {
 
             foreach ($this->row[$row]->cells as $col => &$cell) {
+                        if ($this->shift) {
+                            $offset = ($col - self::$marquee_offset) % (count($marquee[0]) + 5);
+                        } else {
+                            $offset = ($col - self::$marquee_offset);
+                        }
+                        if ($marquee and isset($marquee[$row - ($this->heigh) / 2 + 2][$offset]) and $marquee[$row - ($this->heigh) / 2 + 2][$offset]) {
+                            $this->row[$row]->cells[$col]->is_wording = true;
+                        } else {
+                            $this->row[$row]->cells[$col]->is_wording = false;
+                        }
 
                 if (!isset($this->row[$row - 1]->cells[$col]) or $this->row[$row - 1]->cells[$col]->dot == ' ') {
                     $cell->dot = ' ';
@@ -195,16 +205,6 @@ class Layout
                     }
                     for ($snake = $row - 1, $k = count($this->getColors()) - 1; isset($this->row[$snake]); $snake--) {
 
-                        if ($this->shift) {
-                            $offset = ($col - self::$marquee_offset) % (count($marquee[0]) + 5);
-                        } else {
-                            $offset = ($col - self::$marquee_offset);
-                        }
-                        if ($marquee and isset($marquee[$snake - ($this->heigh) / 2 + 2][$offset]) and $marquee[$snake - ($this->heigh) / 2 + 2][$offset]) {
-                            $this->row[$snake]->cells[$col]->is_wording = true;
-                        } else {
-                            $this->row[$snake]->cells[$col]->is_wording = false;
-                        }
                         $c = max($k--, 0);
                         $this->row[$snake]->cells[$col]->color_code = $this->getColors()[$c];
                     }
