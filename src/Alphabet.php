@@ -3,6 +3,18 @@ namespace Matrix;
 
 class Alphabet
 {
+
+    public function __construct($char)
+    {
+        $ascii = ord($char);
+        $this->map = self::$V5ProphitCell[$ascii];
+    }
+
+    public function getHeight()
+    {
+        return count($this->map);
+    }
+
     public static $V5ProphitCell = [
         '48' => [
             [0 ,0 ,1 ,1 ,1 ,1 ,1 ,1 ,0 ,0],

@@ -4,6 +4,9 @@ Class AlphabetTest extends PHPUnit_Framework_TestCase
 {
     public function testHeight()
     {
-        $this->assertEquals(1, 1);
+        $target = new Alphabet('A');
+        $height = $target->getHeight();
+        $expected = 7;
+        $this->assertEquals($expected, $height);
     }
 }
