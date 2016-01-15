@@ -1,4 +1,5 @@
 <?php
+use Matrix\Alphabet;
 Class AlphabetTest extends PHPUnit_Framework_TestCase
 {
     public function testHeight()
