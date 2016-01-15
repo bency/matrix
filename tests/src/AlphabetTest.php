@@ -1,5 +1,5 @@
 <?php
-Class AlphabatTest extends PHPUnit_Framework_TestCase
+Class AlphabetTest extends PHPUnit_Framework_TestCase
 {
     public function testHeight()
     {

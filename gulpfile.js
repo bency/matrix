@@ -19,7 +19,7 @@ gulp.task('phpunit', function() {
             phpunitArgs += ' --' + i;
         }
     }
-    gulp.src('test/**/*.php')
+    gulp.src('tests/**/*.php')
         .pipe(phpunit('/usr/local/bin/phpunit' + phpunitArgs, options))
         .on('error', notify.onError({
             title: "Failed Tests!",
