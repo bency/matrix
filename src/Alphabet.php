@@ -4,6 +4,8 @@ namespace Matrix;
 class Alphabet
 {
 
+    private $map = null;
+
     public function __construct($char)
     {
         $ascii = ord($char);
