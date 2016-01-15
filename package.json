@@ -1,0 +1,31 @@
+{
+  "name": "matrix",
+  "version": "1.5.0",
+  "description": "Show \"The Matrix Rain\" on your console",
+  "main": "index.js",
+  "dependencies": {
+    "gulp-notify": "^2.2.0",
+    "gulp": "^3.9.0",
+    "yargs": "^3.31.0",
+    "gulp-phpunit": "^0.11.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bency/matrix.git"
+  },
+  "keywords": [
+    "ascii rain",
+    "cli rain",
+    "matrix rain"
+  ],
+  "author": "bency",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bency/matrix/issues"
+  },
+  "homepage": "https://github.com/bency/matrix#readme"
+}
