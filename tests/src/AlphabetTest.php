@@ -9,4 +9,12 @@ Class AlphabetTest extends PHPUnit_Framework_TestCase
         $expected = 7;
         $this->assertEquals($expected, $height);
     }
+
+    public function testHeightOfEmptyString()
+    {
+        $target = new Alphabet('');
+        $height = $target->getHeight();
+        $expected = 0;
+        $this->assertEquals($expected, $height);
+    }
 }

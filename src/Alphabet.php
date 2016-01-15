@@ -9,7 +9,9 @@ class Alphabet
     public function __construct($char)
     {
         $ascii = ord($char);
-        $this->map = self::$V5ProphitCell[$ascii];
+        if (isset(self::$V5ProphitCell[$ascii])) {
+            $this->map = self::$V5ProphitCell[$ascii];
+        }
     }
 
     public function getHeight()
