@@ -10,6 +10,11 @@
             "email": "bency80097@gmail.com"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "Matrix\\": "src/"
+        }
+    },
     "bin": ["bin/matrix"],
     "require": {
         "php": ">=5.4.0"
