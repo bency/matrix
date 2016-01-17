@@ -9,6 +9,10 @@ foreach ($_SERVER['argv'] as $arg) {
     }
 }
 $layout = new Matrix\Layout();
-$layout->setWording('MATRIX RAIN');
-$layout->enableMarquee();
-$layout->run($debug);
+$options = [
+    'debug' => $debug,
+    'marquee' => true,
+    'timer' => true,
+    'timer_format' => 'H:i:s'
+];
+$layout->run($options);
