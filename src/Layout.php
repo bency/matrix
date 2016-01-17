@@ -186,8 +186,9 @@ class Layout
                 } else {
                     $offset = ($col - self::$marquee_offset);
                 }
-                if ($marquee and isset($marquee[$row - ($this->heigh) / 2 + 2][$offset]) and $marquee[$row - ($this->heigh) / 2 + 2][$offset]) {
+                if ($marquee and isset($marquee[$row - ($this->heigh) / 2 + 2][$offset])) {
                     $this->row[$row]->cells[$col]->is_wording = true;
+                    $this->row[$row]->cells[$col]->wording = $marquee[$row - ($this->heigh) / 2 + 2][$offset];
                 } else {
                     $this->row[$row]->cells[$col]->is_wording = false;
                 }
