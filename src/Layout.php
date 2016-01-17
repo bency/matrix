@@ -274,6 +274,14 @@ class Layout
 
     public function run(array $options = [])
     {
+        $width = $heigh = 0;
+
+        $debug_mode = isset($options['debug']) ? $options['debug'] : false;
+
+        if (isset($options['wording'])) {
+            $wording = $options['wording'];
+        }
+
         while(1) {
 
             $this->captureKeyStroke();
@@ -290,6 +298,14 @@ class Layout
             if (($envi_param[1]) != $heigh) {
                 $heigh = $envi_param[1];
                 $this->setHeight($heigh);
+            }
+            if (isset($options['timer']) and isset($options['timer_format'])) {
+                $wording = date($options['timer_format']);
+            }
+            $this->setWording($wording);
+
+            if (isset($options['marquee']) and $options['marquee']) {
+                $this->enableMarquee();
             }
             $this->display($debug_mode);
         }
