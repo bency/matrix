@@ -3,16 +3,29 @@
 include __DIR__ . "/../vendor/autoload.php";
 
 $debug = false;
-foreach ($_SERVER['argv'] as $arg) {
+$wording = '';
+$timer = false;
+$timer_format = 'H:i:s';
+foreach ($_SERVER['argv'] as $key => $arg) {
     if ('--debug' == $arg) {
         $debug = true;
+    }
+    if ('--wording' == $arg) {
+        $wording = $_SERVER['argv'][$key + 1];
+    }
+    if ('--timer' == $arg) {
+        $timer = true;
+    }
+    if ('--timer-format' == $arg) {
+        $timer_format = $_SERVER['argv'][$key + 1];
     }
 }
 $layout = new Matrix\Layout();
 $options = [
     'debug' => $debug,
     'marquee' => true,
-    'timer' => true,
-    'timer_format' => 'H:i:s'
+    'wording' => $wording,
+    'timer' => $timer,
+    'timer_format' => $timer_format
 ];
 $layout->run($options);
