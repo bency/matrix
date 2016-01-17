@@ -1,14 +1,26 @@
 
 # matrix
-matrix alphabet rain in console
+* Matrix alphabet rain in console.
+
+# Install
+    $ export PATH=$PATH:$HOME/.composer/vendor/bin
+    $ composer global require bency/php-matrix-rain
+    $ matrix
+
+* We provide three different colors:
 ![image](https://raw.githubusercontent.com/bency/matrix/master/matrix-preview-green.png)
 ![image](https://raw.githubusercontent.com/bency/matrix/master/matrix-preview-blue.png)
 ![image](https://raw.githubusercontent.com/bency/matrix/master/matrix-preview-gray.png)
 
-# Usage
-    $ export PATH=$PATH:$HOME/.composer/vendor/bin
-    $ composer global require bency/php-matrix-rain
-    $ matrix
+* We provide marquees
+
+       $ matrix --marquee --wording "MATRIX"
+![image](https://raw.githubusercontent.com/bency/matrix/master/marquee.png)
+
+* Also can show timer on marquee
+
+        $ matrix --timer --timer-format "Y-m-d"
+![image](https://raw.githubusercontent.com/bency/matrix/master/timer.png)
 
 ## keyboard short cut
 
