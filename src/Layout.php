@@ -286,12 +286,18 @@ class Layout
     public function run(array $options = [])
     {
         $width = $heigh = 0;
+        $font = 'modular';
 
         $debug_mode = isset($options['debug']) ? $options['debug'] : false;
 
         if (isset($options['wording'])) {
             $wording = $options['wording'];
         }
+
+        if (isset($options['font'])) {
+            $font = $options['font'];
+        }
+        Alphabet::setFont($font);
 
         while(1) {
 
