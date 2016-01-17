@@ -272,7 +272,7 @@ class Layout
         }
     }
 
-    public function run($debug_mode = false)
+    public function run(array $options = [])
     {
         while(1) {
 
