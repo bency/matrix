@@ -6,6 +6,7 @@ $debug = false;
 $wording = '';
 $timer = false;
 $timer_format = 'H:i:s';
+$marquee = false;
 foreach ($_SERVER['argv'] as $key => $arg) {
     if ('--debug' == $arg) {
         $debug = true;
@@ -19,11 +20,14 @@ foreach ($_SERVER['argv'] as $key => $arg) {
     if ('--timer-format' == $arg) {
         $timer_format = $_SERVER['argv'][$key + 1];
     }
+    if ('--marquee' == $arg) {
+        $marquee = true;
+    }
 }
 $layout = new Matrix\Layout();
 $options = [
     'debug' => $debug,
-    'marquee' => true,
+    'marquee' => $marquee,
     'wording' => $wording,
     'timer' => $timer,
     'timer_format' => $timer_format
