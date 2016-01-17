@@ -183,6 +183,8 @@ class Layout
         $this->marquee_width = count($marquee[0]);
         if ($this->shift) {
             self::$marquee_offset = (self::$marquee_offset - 1) % $this->width;
+        } else {
+            self::$marquee_offset = max(intval(($this->width - $this->marquee_width) / 2), 0);
         }
 
         // centerd for now
