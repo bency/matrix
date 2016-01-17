@@ -12,6 +12,8 @@ class Layout
     private $new_row_ratio = 50;
     private $empty_row_ratio = 80;
     private $min_rain_length = 15;
+    private $offset = 0;
+    private $marquee_width = 0;
     private $wording = null;
     private $shift = false;
     private static $sleep_standard = 100000;
@@ -142,13 +144,16 @@ class Layout
         if ($debug_mode) {
             $ignore_last = substr(
                 sprintf(
-                    "fps: %s, W: %s, H: %s, NRR: %s, ERR: %s, MRL: %s",
+                    "fps: %s, W: %s, H: %s, NRR: %s, ERR: %s, MRL: %s, mr_offset: %s, offset: %s, marquee width: %s",
                     number_format(1000000 / self::$sleep, 2),
                     $this->width,
                     $this->heigh,
                     $this->new_row_ratio,
                     $this->empty_row_ratio,
-                    $this->min_rain_length
+                    $this->min_rain_length,
+                    self::$marquee_offset,
+                    $this->offset,
+                    $this->marquee_width
                 ),
                 0,
                 $this->width
@@ -175,6 +180,7 @@ class Layout
             $marquee = Alphabet::getString($this->wording);
         }
 
+        $this->marquee_width = count($marquee[0]);
         if ($this->shift) {
             self::$marquee_offset = (self::$marquee_offset - 1) % $this->width;
         }
@@ -185,13 +191,13 @@ class Layout
 
             foreach ($this->row[$row]->cells as $col => &$cell) {
                 if ($this->shift) {
-                    $offset = ($col - self::$marquee_offset) % (count($marquee[0]) + 5);
+                    $this->offset = ($col - self::$marquee_offset) % ($this->width);
                 } else {
-                    $offset = ($col - self::$marquee_offset);
+                    $this->offset = ($col - self::$marquee_offset);
                 }
-                if ($marquee and isset($marquee[$row - $padding_top][$offset])) {
+                if ($marquee and isset($marquee[$row - $padding_top][$this->offset])) {
                     $this->row[$row]->cells[$col]->is_wording = true;
-                    $this->row[$row]->cells[$col]->wording = $marquee[$row - $padding_top][$offset];
+                    $this->row[$row]->cells[$col]->wording = $marquee[$row - $padding_top][$this->offset];
                 } else {
                     $this->row[$row]->cells[$col]->is_wording = false;
                 }
