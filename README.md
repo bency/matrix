@@ -8,19 +8,19 @@
     $ matrix
 
 * We provide three different colors:
-![image](https://raw.githubusercontent.com/bency/matrix/master/matrix-preview-green.png)
-![image](https://raw.githubusercontent.com/bency/matrix/master/matrix-preview-blue.png)
-![image](https://raw.githubusercontent.com/bency/matrix/master/matrix-preview-gray.png)
+![image](https://raw.githubusercontent.com/bency/matrix/master/images/matrix-preview-green.png)
+![image](https://raw.githubusercontent.com/bency/matrix/master/images/matrix-preview-blue.png)
+![image](https://raw.githubusercontent.com/bency/matrix/master/images/matrix-preview-gray.png)
 
 * We provide marquees
 
        $ matrix --marquee --wording "MATRIX"
-![image](https://raw.githubusercontent.com/bency/matrix/master/marquee.png)
+![image](https://raw.githubusercontent.com/bency/matrix/master/images/marquee.png)
 
 * Also can show timer on marquee
 
         $ matrix --timer --timer-format "Y-m-d"
-![image](https://raw.githubusercontent.com/bency/matrix/master/timer.png)
+![image](https://raw.githubusercontent.com/bency/matrix/master/images/timer.png)
 
 ## keyboard short cut
 
