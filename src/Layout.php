@@ -29,8 +29,8 @@ class Layout
 
     public function enableMarquee()
     {
-        if (!$this->wording) {
-            throw new Exception('You need to set wording first.');
+        if (strlen($this->wording) < 1) {
+            throw new \Exception('You need to set wording first.');
         }
         $this->shift = true;
     }
