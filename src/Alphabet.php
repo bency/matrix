@@ -393,6 +393,9 @@ class Alphabet
         // get max height
         for ($i = 0; $i < $str_len; $i++) {
             $alpha = ord($string[$i]);
+            if (!isset(self::$V5ProphitCell[$alpha])) {
+                throw new \Exception("this character {$string[$i]} is not support");
+            }
             $max_height = max($max_height, count(self::$V5ProphitCell[$alpha]));
         }
 
