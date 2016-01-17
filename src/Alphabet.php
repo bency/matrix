@@ -392,7 +392,9 @@ class Alphabet
 
         // get max height
         for ($i = 0; $i < $str_len; $i++) {
-            $alpha = ord($string[$i]);
+
+            // only provide upper case
+            $alpha = ord(strtoupper($string[$i]));
             if (!isset(self::$V5ProphitCell[$alpha])) {
                 throw new \Exception("this character {$string[$i]} is not support");
             }
@@ -404,7 +406,7 @@ class Alphabet
                 if (!isset($combo[$row])) {
                     $combo[$row] = [];
                 }
-                $alpha = ord($string[$i]);
+                $alpha = ord(strtoupper($string[$i]));
                 $combo[$row] = array_merge(
                     $combo[$row],
                     [' ', ' '],
