@@ -310,7 +310,7 @@ class Layout
                 $heigh = $envi_param[1];
                 $this->setHeight($heigh);
             }
-            if (isset($options['timer']) and isset($options['timer_format'])) {
+            if (isset($options['timer']) and $options['timer'] and isset($options['timer_format'])) {
                 $wording = date($options['timer_format']);
             }
             $this->setWording($wording);
