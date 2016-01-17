@@ -178,6 +178,9 @@ class Layout
         if ($this->shift) {
             self::$marquee_offset = (self::$marquee_offset - 1) % $this->width;
         }
+
+        // centerd for now
+        $padding_top = intval(($this->heigh - count($marquee)) / 2);
         for ($row = $this->heigh - 1; $row > 0; $row--) {
 
             foreach ($this->row[$row]->cells as $col => &$cell) {
@@ -186,9 +189,9 @@ class Layout
                 } else {
                     $offset = ($col - self::$marquee_offset);
                 }
-                if ($marquee and isset($marquee[$row - ($this->heigh) / 2 + 2][$offset])) {
+                if ($marquee and isset($marquee[$row - $padding_top][$offset])) {
                     $this->row[$row]->cells[$col]->is_wording = true;
-                    $this->row[$row]->cells[$col]->wording = $marquee[$row - ($this->heigh) / 2 + 2][$offset];
+                    $this->row[$row]->cells[$col]->wording = $marquee[$row - $padding_top][$offset];
                 } else {
                     $this->row[$row]->cells[$col]->is_wording = false;
                 }
