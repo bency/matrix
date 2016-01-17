@@ -182,7 +182,7 @@ class Layout
 
         $this->marquee_width = count($marquee[0]);
         if ($this->shift) {
-            self::$marquee_offset = (self::$marquee_offset - 1) % $this->width;
+            self::$marquee_offset = (self::$marquee_offset - 1) % (max($this->width, $this->marquee_width) + 10);
         } else {
             self::$marquee_offset = max(intval(($this->width - $this->marquee_width) / 2), 0);
         }
@@ -193,7 +193,7 @@ class Layout
 
             foreach ($this->row[$row]->cells as $col => &$cell) {
                 if ($this->shift) {
-                    $this->offset = ($col - self::$marquee_offset) % ($this->width);
+                    $this->offset = ($col - self::$marquee_offset) % (max($this->width, $this->marquee_width) + 10);
                 } else {
                     $this->offset = ($col - self::$marquee_offset);
                 }
