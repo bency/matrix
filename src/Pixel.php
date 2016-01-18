@@ -12,6 +12,10 @@ class Pixel
     public $is_wording = false;
     public $wording = '';
     public $color_code = 15;  // 31 ~ 37
+    private $color_set = null;
+    private $color_set_niddle = 0;
+    private $next_color_set_niddle = 0;
+    private $color_niddle = 0;
     public static $color_256 = [
         [234, 22, 28, 34, 40, 46, 83, 84],
         [16, 17, 18, 19, 20, 21],
@@ -24,6 +28,36 @@ class Pixel
     {
         if (!$empty) {
             $this->setRandomAlphabet();
+        }
+    }
+
+    public function setColorSet($color_set = 0)
+    {
+        $this->next_color_set_niddle = $this->color_set_niddle = $color_set;
+        $this->color_set = self::$color_256[$this->color_set_niddle];
+        $this->color_niddle = 0;
+    }
+
+    public function getColor()
+    {
+        return $this->color_set[$this->color_niddle];
+    }
+
+    public function nextColor()
+    {
+        $this->color_niddle = $this->color_niddle + 1;
+        if (count($this->color_set) == $this->color_niddle) {
+            $this->setColorSet($this->next_color_set_niddle);
+            $this->color_niddle = 0;
+        }
+    }
+
+    public function nextColorSet($color_set = null)
+    {
+        if (is_null($color_set)) {
+            $this->next_color_set_niddle = ($this->color_set_niddle + 1) % count(self::$color_256);
+        } else {
+            $this->next_color_set_niddle = intval($color_set);
         }
     }
 
