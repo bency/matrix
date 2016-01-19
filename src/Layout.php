@@ -189,6 +189,8 @@ class Layout
 
         // centerd for now
         $padding_top = intval(($this->heigh - count($marquee)) / 2);
+
+        // grow from bottom to top
         for ($row = $this->heigh - 1; $row > 0; $row--) {
 
             foreach ($this->row[$row]->cells as $col => &$cell) {
