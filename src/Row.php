@@ -15,14 +15,16 @@ class Row
             return;
         }
         $this->width = $width;
+        for ($i = 0; $i < $this->width; $i++) {
+            if (!isset($this->cells[$i])) {
+                $this->cells[$i] = new Pixel(true);
+            }
+        }
     }
 
     public function display()
     {
         for ($i = 0; $i < $this->width; $i++) {
-            if (!isset($this->cells[$i])) {
-                $this->cells[$i] = new Pixel(true);
-            }
             echo $this->cells[$i]->getAscii();
         }
     }
