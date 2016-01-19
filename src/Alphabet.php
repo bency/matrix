@@ -51,23 +51,19 @@ class Alphabet
         for ($i = 0; $i < $str_len; $i++) {
 
             // only provide upper case
-            $alpha = ord(strtoupper($string[$i]));
-            if (!isset(self::$V5ProphitCell[$alpha])) {
-                throw new \Exception("this character {$string[$i]} is not support");
-            }
-            $max_height = max($max_height, count(self::$V5ProphitCell[$alpha]));
+            $charts[] = $alpha = new Alphabet(strtoupper($string[$i]));
+            $max_height = max($max_height, $alpha->getHeight());
         }
 
         for ($row = $max_height - 1; $row >= 0; $row--) {
-            for ($i = 0; $i < $str_len; $i++) {
+            foreach ($charts as $i => $alpha) {
                 if (!isset($combo[$row])) {
                     $combo[$row] = [];
                 }
-                $alpha = ord(strtoupper($string[$i]));
                 $combo[$row] = array_merge(
                     $combo[$row],
                     [' ', ' '],
-                    self::$V5ProphitCell[$alpha][$row]
+                    $alpha->getRow($row)
                 );
             }
         }
