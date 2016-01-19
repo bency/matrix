@@ -198,21 +198,23 @@ class Layout
                     $this->offset = ($col - self::$marquee_offset);
                 }
                 if ($marquee and isset($marquee[$row - $padding_top][$this->offset])) {
-                    $this->row[$row]->cells[$col]->is_wording = true;
-                    $this->row[$row]->cells[$col]->wording = $marquee[$row - $padding_top][$this->offset];
+                    $cell->is_wording = true;
+                    $cell->wording = $marquee[$row - $padding_top][$this->offset];
                 } else {
-                    $this->row[$row]->cells[$col]->is_wording = false;
+                    $cell->is_wording = false;
                 }
 
-                if (!isset($this->row[$row - 1]->cells[$col]) or $this->row[$row - 1]->cells[$col]->dot == ' ') {
+                $above_cell = &$this->row[$row - 1]->cells[$col];
+
+                if (!isset($above_cell) or $above_cell->dot == ' ') {
                     $cell->dot = ' ';
                 } elseif ($cell->dot == ' ') {                      // 上一列有值但這一列是空白
                     if (rand() % 10 > 7) {                          // 八成機率產生新值
                         // 已經不知道為什麼需要這一行了
-                        $this->row[$row - 1]->cells[$col]->color_code = 92;
+                        $above_cell->color_code = 92;
                     } else {
                         // 產生新值
-                        $this->row[$row - 1]->cells[$col]->color_code = 1;
+                        $above_cell->color_code = 1;
                         $cell->newRandomAlphabet();
                     }
                     for ($snake = $row - 1, $k = count($this->getColors()) - 1; isset($this->row[$snake]); $snake--) {
@@ -226,7 +228,7 @@ class Layout
                     }
                 } else {                                            // 最後一行
                     if ($this->row) {
-                        $cell->color_code = $this->row[$row - 1]->cells[$col]->color_code;
+                        $cell->color_code = $above_cell->color_code;
                     }
                 }
             }
