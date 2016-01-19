@@ -57,6 +57,9 @@ class Layout
             return;
         }
         $this->width = $width;
+        for ($heigh = 0; $heigh < $this->heigh; $heigh++) {
+            $this->row[$heigh]->setWidth($this->width);
+        }
     }
 
     public function setHeight($heigh)
@@ -65,6 +68,11 @@ class Layout
             return;
         }
         $this->heigh = $heigh;
+        for ($heigh = 0; $heigh < $this->heigh; $heigh++) {
+            if (!isset($this->row[$heigh])) {
+                $this->row[$heigh] = new Row();
+            }
+        }
     }
 
     private function adjustSleep() {
@@ -133,10 +141,6 @@ class Layout
     {
         echo RESET_POSITION;
         for ($heigh = 0; $heigh < $this->heigh - 1; $heigh++) {
-            if (!isset($this->row[$heigh])) {
-                $this->row[$heigh] = new Row();
-            }
-            $this->row[$heigh]->setWidth($this->width);
             $this->row[$heigh]->display();
         }
 
@@ -159,10 +163,6 @@ class Layout
                 $this->width
             );
         }
-        if (!isset($this->row[$heigh])) {
-            $this->row[$heigh] = new Row();
-        }
-        $this->row[$heigh]->setWidth($this->width);
         $this->row[$heigh]->display($ignore_last);
         $this->growUp();
         usleep(self::$sleep);
@@ -307,14 +307,14 @@ class Layout
             exec('tput cols', $envi_param);
             exec('tput lines', $envi_param);
 
-            if ($envi_param[0] != $width) {
-                $width = $envi_param[0];
-                $this->setWidth($width);
-            }
-
             if (($envi_param[1]) != $heigh) {
                 $heigh = $envi_param[1];
                 $this->setHeight($heigh);
+            }
+
+            if ($envi_param[0] != $width) {
+                $width = $envi_param[0];
+                $this->setWidth($width);
             }
             if (isset($options['timer']) and $options['timer'] and isset($options['timer_format'])) {
                 $wording = date($options['timer_format']);
