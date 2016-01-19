@@ -60,9 +60,13 @@ class Alphabet
                 if (!isset($combo[$row])) {
                     $combo[$row] = [];
                 }
+                $space = [' ', ' '];
+                if (count($combo[$row]) == 0) {
+                    $space = [];
+                }
                 $combo[$row] = array_merge(
                     $combo[$row],
-                    [' ', ' '],
+                    $space,
                     $alpha->getRow($row)
                 );
             }
