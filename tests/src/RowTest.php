@@ -10,4 +10,14 @@ class RowTest extends PHPUnit_Framework_TestCase
         $target = count($row->cells);
         $this->assertEquals($expected, $target);
     }
+
+    public function testSetWidth()
+    {
+        $row = new Row;
+        $width = 20;
+        $row->setWidth($width);
+        foreach ($row->cells as $pixel) {
+            $this->assertInstanceOf('Matrix\Pixel', $pixel);
+        }
+    }
 }
