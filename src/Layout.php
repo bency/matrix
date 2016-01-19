@@ -207,12 +207,13 @@ class Layout
                 $above_cell = &$this->row[$row - 1]->cells[$col];
 
                 if (!isset($above_cell) or $above_cell->dot == ' ') {
+
+                    // if last row is empty, keep it
                     $cell->dot = ' ';
                 } elseif ($cell->dot == ' ') {                      // 上一列有值但這一列是空白
-                    if (rand() % 10 > 7) {                          // 八成機率產生新值
-                        // 已經不知道為什麼需要這一行了
-                        $above_cell->color_code = 92;
-                    } else {
+
+                    // probability of creating new dot 70%
+                    if (rand() % 10 < 7) {
                         // 產生新值
                         $above_cell->color_code = 1;
                         $cell->newRandomAlphabet();
