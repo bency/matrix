@@ -34,6 +34,11 @@ class Alphabet
         self::$V5ProphitCell = json_decode(file_get_contents(__DIR__ . '/../fonts/' . $font_name . '.json'), true);
     }
 
+    public function getRow($row = 0)
+    {
+        return $this->map[$row];
+    }
+
     public static function getString($string)
     {
         $str_len = strlen($string);

@@ -27,4 +27,12 @@ Class AlphabetTest extends PHPUnit_Framework_TestCase
         $expected = 9;
         $this->assertEquals($expected, $target);
     }
+
+    public function testGetRowByModularFont()
+    {
+        $alpha = new Alphabet('A');
+        $target = $alpha->getRow(0);
+        $expected = [' ', '_', '_', '_', '_', '_', '_', '_', ' '];
+        $this->assertEquals($expected, $target);
+    }
 }
