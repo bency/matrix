@@ -28,6 +28,7 @@ class Pixel
         if (!$empty) {
             $this->setRandomAlphabet();
         }
+        $this->setColorSet();
     }
 
     public function setColorSet($color_set = 0)
