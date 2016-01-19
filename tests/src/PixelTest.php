@@ -7,7 +7,7 @@ class PixelTest extends PHPUnit_Framework_TestCase
         $target = new Pixel;
         $target->setColorSet();
         $color = $target->getColor();
-        $expect = Pixel::$color_256[0][0];
+        $expect = Pixel::$color_256[0][8];
         $this->assertEquals($expect, $color);
     }
 
@@ -17,7 +17,7 @@ class PixelTest extends PHPUnit_Framework_TestCase
         $target->setColorSet();
         $target->nextColor();
         $color = $target->getColor();
-        $expect = Pixel::$color_256[0][1];
+        $expect = Pixel::$color_256[0][7];
         $this->assertEquals($expect, $color);
     }
 

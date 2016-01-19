@@ -35,7 +35,7 @@ class Pixel
     {
         $this->next_color_set_niddle = $this->color_set_niddle = $color_set;
         $this->color_set = self::$color_256[$this->color_set_niddle];
-        $this->color_niddle = 0;
+        $this->color_niddle = count($this->color_set) - 1;
     }
 
     public function getColor()
@@ -45,11 +45,7 @@ class Pixel
 
     public function nextColor()
     {
-        $this->color_niddle = $this->color_niddle + 1;
-        if (count($this->color_set) == $this->color_niddle) {
-            $this->setColorSet($this->next_color_set_niddle);
-            $this->color_niddle = 0;
-        }
+        $this->color_niddle = max($this->color_niddle - 1, 0);
     }
 
     public function nextColorSet($color_set = null)
@@ -71,7 +67,7 @@ class Pixel
 
     public function newRandomAlphabet()
     {
-        $this->color_code = 15;
+        $this->color_niddle = count($this->color_set) - 1;
         $rand = rand() % count(self::$alphabet);
         $this->dot = self::$alphabet[$rand];
     }
