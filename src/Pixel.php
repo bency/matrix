@@ -17,9 +17,9 @@ class Pixel
     private $next_color_set_niddle = 0;
     private $color_niddle = 0;
     public static $color_256 = [
-        [234, 22, 28, 34, 40, 46, 83, 84],
-        [16, 17, 18, 19, 20, 21],
-        [232, 235, 238, 241, 244, 247, 250, 253]
+        [234, 22, 28, 34, 40, 46, 83, 84, 15],
+        [16, 17, 18, 19, 20, 21, 15],
+        [232, 235, 238, 241, 244, 247, 250, 253, 15]
     ];
     public static $color_wording = [84, 21, 253];
     public $dot = ' ';
