@@ -19,6 +19,11 @@ class Alphabet
         return count($this->map);
     }
 
+    public function getWidth()
+    {
+        return count($this->map[0]);
+    }
+
     public static $V5ProphitCell = [];
 
     public static function setFont($font_name)

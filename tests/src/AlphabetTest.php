@@ -19,4 +19,12 @@ Class AlphabetTest extends PHPUnit_Framework_TestCase
         $expected = 0;
         $this->assertEquals($expected, $height);
     }
+
+    public function testWidth()
+    {
+        $alpha = new Alphabet('A');
+        $target = $alpha->getWidth();
+        $expected = 9;
+        $this->assertEquals($expected, $target);
+    }
 }
