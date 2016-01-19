@@ -11,7 +11,6 @@ class Pixel
     ];
     public $is_wording = false;
     public $wording = '';
-    public $color_code = 15;  // 31 ~ 37
     private $color_set = null;
     private $color_set_niddle = 0;
     private $next_color_set_niddle = 0;
@@ -62,7 +61,7 @@ class Pixel
         if ($this->is_wording) {
             return "\e[38;5;" . self::$color_wording[Layout::$color_style] . "m{$this->wording}\e[0m";
         }
-        return "\e[38;5;{$this->color_code}m{$this->dot}\e[0m";
+        return "\e[38;5;" . $this->getColor() . "m{$this->dot}\e[0m";
     }
 
     public function newRandomAlphabet()

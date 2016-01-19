@@ -217,21 +217,15 @@ class Layout
                     // probability of creating new dot 70%
                     if (rand() % 10 < 7) {
                         // 產生新值
-                        $above_cell->color_code = 1;
                         $cell->newRandomAlphabet();
-                    }
                     for ($snake = $row - 1, $k = count($this->getColors()) - 1; isset($this->row[$snake]); $snake--) {
 
                         $c = max($k--, 0);
-                        $this->row[$snake]->cells[$col]->color_code = $this->getColors()[$c];
+                        $this->row[$snake]->cells[$col]->nextColor();
+                    }
                     }
                 } elseif ($row < $this->heigh - 1) {
                     if ($this->row[$row + 1]->cells[$col]->dot == ' ') {
-                        $cell->color_code = 15;
-                    }
-                } else {                                            // 最後一行
-                    if ($this->row) {
-                        $cell->color_code = $above_cell->color_code;
                     }
                 }
             }
