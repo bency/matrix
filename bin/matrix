@@ -27,6 +27,10 @@ foreach ($_SERVER['argv'] as $key => $arg) {
     if ('--marquee' == $arg) {
         $marquee = true;
     }
+
+    if ('--wording-path' == $arg) {
+        $wording_path = $_SERVER['argv'][$key + 1];
+    }
 }
 $layout = new Matrix\Layout();
 $options = [
@@ -34,6 +38,7 @@ $options = [
     'marquee' => $marquee,
     'wording' => $wording,
     'timer' => $timer,
+    'wording-path' => $wording_path,
     'timer_format' => $timer_format
 ];
 $layout->run($options);

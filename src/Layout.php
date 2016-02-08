@@ -319,6 +319,13 @@ class Layout
             if (isset($options['timer']) and $options['timer'] and isset($options['timer_format'])) {
                 $wording = date($options['timer_format']);
             }
+
+            if (isset($options['wording-path']) and file_exists($options['wording-path'])) {
+                $path = $options['wording-path'];
+                $content = file_get_contents($path);
+                $words = explode("\n", $content);
+                $wording = $words[count($words) - 2];
+            }
             $this->setWording($wording);
 
             if (isset($options['marquee']) and $options['marquee']) {
