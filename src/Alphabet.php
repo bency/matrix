@@ -31,6 +31,7 @@ class Alphabet
 
     public static function getString($string)
     {
+        $string = (string) $string;
         $str_len = strlen($string);
         if ($str_len < 1) {
             return null;
