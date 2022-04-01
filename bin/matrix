@@ -27,6 +27,9 @@ foreach ($_SERVER['argv'] as $key => $arg) {
     if ('--marquee' == $arg) {
         $marquee = true;
     }
+    if ('--countdown' == $arg) {
+        $countdown = $_SERVER['argv'][$key + 1];
+    }
 
     if ('--wording-path' == $arg) {
         $wording_path = $_SERVER['argv'][$key + 1];
@@ -38,6 +41,7 @@ $options = [
     'marquee' => $marquee,
     'wording' => $wording,
     'timer' => $timer,
+    'countdown' => $countdown,
     'wording-path' => $wording_path,
     'timer_format' => $timer_format
 ];

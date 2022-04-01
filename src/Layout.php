@@ -19,6 +19,7 @@ class Layout
     private $shift = false;
     private static $sleep_standard = 100000;
     private static $sleep;
+    private static $countdown_target = null;
     public function __construct()
     {
 
@@ -281,6 +282,47 @@ class Layout
         }
     }
 
+    /**
+     *  countdown
+     *
+     *  set countdown timer
+     *  eg. 5m 10h4m2s 140s
+     */
+    private function countdown($countdown)
+    {
+        if (!self::$countdown_target) {
+            self::$countdown_target = time() + $countdown * 60;
+        }
+        return $this->formatCountdown(self::$countdown_target - time());
+    }
+
+    private function formatCountdown($seconds)
+    {
+        $rest_seconds = $seconds % 60;
+        if ($rest_seconds < 10) {
+            $rest_seconds = '0' . $rest_seconds;
+        }
+        if (!$minutes = floor($seconds / 60)) {
+            return $rest_seconds;
+        }
+
+        if ($minutes < 60) {
+            if ($minutes < 10) {
+                $minutes = '0' . $minutes;
+            }
+            return $minutes . ":" . $rest_seconds;
+        }
+        $hours = floor($minutes / 60);
+        $minutes %= 60;
+        if ($minutes < 10) {
+            $minutes = '0' . $minutes;
+        }
+        if ($hours < 10) {
+            $hours = '0' . $hours;
+        }
+        return $hours . ":" . $minutes . ":" . $rest_seconds;
+    }
+
     public function run(array $options = [])
     {
         $width = $heigh = 0;
@@ -315,6 +357,10 @@ class Layout
             }
             if (isset($options['timer']) and $options['timer'] and isset($options['timer_format'])) {
                 $wording = date($options['timer_format']);
+            }
+
+            if (isset($options['countdown']) and $countdown = $options['countdown']) {
+                $wording = $this->countdown($countdown);
             }
 
             if (isset($options['wording-path']) and file_exists($options['wording-path'])) {
