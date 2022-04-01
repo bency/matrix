@@ -1,4 +1,5 @@
 <?php
+
 namespace Matrix;
 
 define('RESET_POSITION', "\e[H\e[J");
@@ -67,7 +68,8 @@ class Layout
         $this->heigh = $heigh;
     }
 
-    private function adjustSleep() {
+    private function adjustSleep()
+    {
         if (self::$sleep == self::$sleep_standard / 10) {
             self::$sleep_standard /= 10;
         } elseif (self::$sleep == self::$sleep_standard * 10) {
@@ -190,7 +192,6 @@ class Layout
         // centerd for now
         $padding_top = intval(($this->heigh - count($marquee)) / 2);
         for ($row = $this->heigh - 1; $row > 0; $row--) {
-
             foreach ($this->row[$row]->cells as $col => &$cell) {
                 if ($this->shift) {
                     $this->offset = ($col - self::$marquee_offset) % (max($this->width, $this->marquee_width) + 10);
@@ -216,7 +217,6 @@ class Layout
                         $cell->newRandomAlphabet();
                     }
                     for ($snake = $row - 1, $k = count($this->getColors()) - 1; isset($this->row[$snake]); $snake--) {
-
                         $c = max($k--, 0);
                         $this->row[$snake]->cells[$col]->color_code = $this->getColors()[$c];
                     }
@@ -235,13 +235,11 @@ class Layout
         // 處理第一行
         foreach ($this->row[0]->cells as $key => &$cell) {
             if ($this->row[1]->cells[$key]->dot == ' ') {
-
                 // 當第二列為空值時 第一列產生新值的機率
                 if (rand() % 100 < $this->new_row_ratio) {
                     $cell->setRandomAlphabet();
                 }
             } elseif ($cell->dot != ' ') {
-
                 // End rain by the probability of empty_row_ratio
                 // after growing longer than min_rain_length
                 $long_enough = true;
@@ -299,8 +297,7 @@ class Layout
         }
         Alphabet::setFont($font);
 
-        while(1) {
-
+        while (1) {
             $this->captureKeyStroke();
             // 重設環境變數
             unset($envi_param);
