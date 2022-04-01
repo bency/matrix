@@ -293,6 +293,9 @@ class Layout
         if (!self::$countdown_target) {
             self::$countdown_target = time() + $countdown * 60;
         }
+        if (time() > self::$countdown_target) {
+            return "time's up";
+        }
         return $this->formatCountdown(self::$countdown_target - time());
     }
 
